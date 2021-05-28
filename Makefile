@@ -22,7 +22,7 @@ end=$ \033[0m
 
 #-----------------------------------------SRC/INC-------------------------------#
 
-FT_NM_FILES 	= main  
+FT_PING_FILES 	= main  
 
 INC_FILES 	= ft_ping.h
 
@@ -32,7 +32,7 @@ SRC_PATH = ./srcs/
 INC_PATH = ./includes/
 OBJ_PATH = ./obj/
 
-SRC_FILES = $(FT_NM_FILES:%=%.c)
+SRC_FILES = $(FT_PING_FILES:%=%.c)
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 INC = $(addprefix $(INC_PATH), $(INC_FILES))
@@ -40,7 +40,7 @@ OBJ = $(patsubst %.c, $(OBJ_PATH)%.o, $(SRC_FILES))
 
 #------------------------------------------RULES--------------------------------#
 
-.PHONY: clean, fclean, all, re, lib, norm
+.PHONY: clean, fclean, all, re
 
 all: $(NAME)
 
@@ -63,4 +63,4 @@ fclean: clean
 	@$(RM) -R $(NAME)
 	@echo "$(red_li)$(notdir $(NAME))$(red_da) removed.$(end)"
 
-re: fclean ft_nm
+re: fclean $(NAME)
