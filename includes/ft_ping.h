@@ -27,12 +27,18 @@ typedef struct  s_payload
 }               t_payload;
 
 
-_Bool   parsing_arguments(int argc, char **argv);
-_Bool   check_for_option(char **argv, int8_t id_opt);
-_Bool   print_help(void);
-void    get_destination(char **argv, t_payload payload, _Bool shift);
+/*  FT_PING   */
+
+_Bool       parsing_arguments(int argc, char **argv);
+_Bool       check_for_option(char **argv, int8_t id_opt);
+_Bool       print_help(void);
+_Bool       get_destination(int argc, char **argv, int8_t id, t_payload *payload);
+t_payload   *create_payload(void);
 
 
+/*  LIBFT   */
 
+char	    *ft_strdup(const char *s1);
+size_t	    ft_strlen(const char *s);
 
 #endif 
