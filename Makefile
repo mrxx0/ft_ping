@@ -22,7 +22,7 @@ end=$ \033[0m
 
 #-----------------------------------------SRC/INC-------------------------------#
 
-FT_PING_FILES 	= main  
+FT_PING_FILES 	= main options
 
 INC_FILES 	= ft_ping.h
 
