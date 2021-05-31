@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
+#include <stdlib.h>
 
 #define FAILURE -1
 
@@ -13,6 +14,10 @@
 #define FALSE 0
 
 #define MALLOC_FAILED NULL
+
+
+_Bool check_for_option(char **argv);
+_Bool print_help(void);
 
 
 
