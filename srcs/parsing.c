@@ -6,69 +6,109 @@ _Bool print_help(void)
     return (EXIT_SUCCESS);
 }
 
-_Bool check_for_option(char **argv, int8_t id_opt)
-{
-    size_t i = 0;
+// _Bool check_for_option(char **argv, int8_t id_opt)
+// {
+//     size_t i = 0;
 
-    while (argv[id_opt][i] != '\0')
+//     while (argv[id_opt][i] != '\0')
+//     {
+//         if (argv[id_opt][i] == 'v')
+//         {
+//             printf("v option parsed\n");
+//             return (EXIT_SUCCESS);
+//         }
+//         else if (argv[id_opt][i] == 'h')
+//             return (EXIT_FAILURE);
+//         else
+//             i++;
+//     }
+//     return (EXIT_FAILURE);
+// }
+void parse_opt(char *str, t_payload *payload)
+{
+    size_t i = 1;
+
+    while (str[i])
     {
-        if (argv[id_opt][i] == 'v')
-        {
-            printf("v option parsed\n");
-            return (EXIT_SUCCESS);
-        }
-        else if (argv[id_opt][i] == 'h')
-            return (EXIT_FAILURE);
-        else
-            i++;
+        if (str[i] == 'h' || str[i] == 'v')
+            payload->opt |= str[i] == 'h' ? HELP : VERBOSE;
+        else if (str[i] != 'h' && str[i] != 'v')
+            payload->opt |= BAD_OPT;
+        i++;
     }
-    return (EXIT_FAILURE);
+    if (payload->opt == 0)
+        payload->opt |= NO_OPT;
 }
 
-int8_t find_opt(int argc, char **argv)
+void find_opt(int argc, char **argv, t_payload *payload)
 {
-    int8_t id = -1;
-    int i = 1;
-    int j = 0;    
+    int i = 0;
+    int j = 0;
+    payload->opt = 0;
 
     while (i < argc)
     {
         while (argv[i][j] != '\0')
         {
-            if (argv[i][j] == '-')
-                id = i;
+            if (argv[i][j] == '-' && payload->opt == 0)
+                parse_opt(argv[i], payload);
+            // if (argv[i][j] == '-' && argv[i][j + 1] == 'h')
+            // {
+            //     payload->opt |= HELP;
+            //     if (argv[i][j + 2] == 'v')
+            //         payload->opt |= VERBOSE;
+            // }
+            // else if (argv[i][j] == '-' && argv[i][j + 1] == 'v')
+            // {
+            //     payload->opt |= VERBOSE;
+            //     if (argv[i][j + 2] == 'h')
+            //         payload->opt |= HELP;
+            // }
+            // else if (argv[i][j] == '-' && (argv[i][j + 1] != 'v' && argv[i][j + 1] != 'h'))
+            //     payload->opt |= BAD_OPT;
             j++;
         }
         j = 0;
         i++;
     }
-    return (id);
+    if (payload->opt == 0)
+        payload->opt = NO_OPT;
 }
 
 _Bool parsing_arguments(int argc, char **argv)
 {
-    int8_t id_opt = 1;
     t_payload *payload = NULL;
     if (argc > 3)
         return (EXIT_FAILURE); 
     else if (argc >= 1)
     {
-        if (argc == 3)
-        {
-            id_opt = find_opt(argc, argv);
-            if (id_opt == -1)
-                return (EXIT_FAILURE);
-            if (check_for_option(argv, id_opt) == EXIT_FAILURE)
-                return (EXIT_FAILURE);
-        }
         payload = create_payload();
         if (payload == MALLOC_FAILED)
             return (EXIT_FAILURE);
-        if (get_destination(argc, argv, id_opt, payload) == EXIT_FAILURE)
+        find_opt(argc, argv, payload);
+        
+        if ((payload->opt & HELP) == 1)
+            printf("HELP\n");
+        if ((payload->opt & VERBOSE) == 2)
+            printf("VERBOSE\n");
+        if ((payload->opt & BAD_OPT) == 4)
+            printf("BAD_OPT\n");
+        if ((payload->opt & NO_OPT) == 5)
+            printf("NO_OPT\n");
+            
+        if ((payload->opt & BAD_OPT) == 4)
+        {
+             free(payload);
             return (EXIT_FAILURE);
-        printf("address = [%s]\n", payload->address);
+        }
+            // if (check_for_option(argv) == EXIT_FAILURE)
+            //     return (EXIT_FAILURE);
+        // if (get_destination(argc, argv, id_opt, payload) == EXIT_FAILURE)
+        //     return (EXIT_FAILURE);
+        // printf("address = [%s]\n", payload->address);
     }
-    free(payload->address);
+    // if (payload->address != NULL)
+    //     free(payload->address);
     free(payload);
     return (EXIT_SUCCESS);
 }

@@ -18,11 +18,17 @@
 
 #define MALLOC_FAILED NULL
 
+# define HELP	    1
+# define VERBOSE	2
+# define BAD_OPT    4
+# define NO_OPT     5 
+
 typedef struct  s_payload
 {
     int     socket;
-    char    pad[4];
+    int     opt;
     char    *address;
+
 
 }               t_payload;
 
