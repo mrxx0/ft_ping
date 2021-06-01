@@ -6,24 +6,6 @@ _Bool print_help(void)
     return (EXIT_SUCCESS);
 }
 
-// _Bool check_for_option(char **argv, int8_t id_opt)
-// {
-//     size_t i = 0;
-
-//     while (argv[id_opt][i] != '\0')
-//     {
-//         if (argv[id_opt][i] == 'v')
-//         {
-//             printf("v option parsed\n");
-//             return (EXIT_SUCCESS);
-//         }
-//         else if (argv[id_opt][i] == 'h')
-//             return (EXIT_FAILURE);
-//         else
-//             i++;
-//     }
-//     return (EXIT_FAILURE);
-// }
 void parse_opt(char *str, t_payload *payload)
 {
     size_t i = 1;
@@ -51,7 +33,10 @@ void find_opt(int argc, char **argv, t_payload *payload)
         while (argv[i][j] != '\0')
         {
             if (argv[i][j] == '-')
+            {
                 parse_opt(argv[i], payload);
+                payload->id_opt = i;
+            }
             j++;
         }
         j = 0;
@@ -89,11 +74,12 @@ _Bool parsing_arguments(int argc, char **argv)
             free(payload);
             return (EXIT_FAILURE);
         }
-            // if (check_for_option(argv) == EXIT_FAILURE)
-            //     return (EXIT_FAILURE);
-        // if (get_destination(argc, argv, id_opt, payload) == EXIT_FAILURE)
-        //     return (EXIT_FAILURE);
-        // printf("address = [%s]\n", payload->address);
+        if (get_destination(argc, argv, payload) == EXIT_FAILURE)
+        {
+            free(payload);
+            return (EXIT_FAILURE);
+        }
+        printf("address = [%s]\n", payload->address);
     }
     if (payload->address != NULL)
         free(payload->address);

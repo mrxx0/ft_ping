@@ -28,6 +28,9 @@ typedef struct  s_payload
 {
     int     socket;
     int     opt;
+    int     id_opt;
+    _Bool   found_address;
+    char    pad[3];
     char    *address;
 
 
@@ -39,7 +42,7 @@ typedef struct  s_payload
 _Bool       parsing_arguments(int argc, char **argv);
 _Bool       check_for_option(char **argv, int8_t id_opt);
 _Bool       print_help(void);
-_Bool       get_destination(int argc, char **argv, int8_t id, t_payload *payload);
+_Bool       get_destination(int argc, char **argv, t_payload *payload);
 t_payload   *create_payload(void);
 
 
@@ -47,5 +50,7 @@ t_payload   *create_payload(void);
 
 char	    *ft_strdup(const char *s1);
 size_t	    ft_strlen(const char *s);
+_Bool       ft_isdigit(char c);
+
 
 #endif 

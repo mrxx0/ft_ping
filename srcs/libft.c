@@ -1,5 +1,13 @@
 #include "../includes/ft_ping.h"
 
+_Bool ft_isdigit(char c)
+{
+	if (c > 57 && c < 48)
+		return (EXIT_FAILURE);
+	else
+		return (EXIT_SUCCESS);
+}
+
 size_t	ft_strlen(const char *s)
 {
 	int count;
