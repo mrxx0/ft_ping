@@ -21,7 +21,8 @@
 # define HELP	    1
 # define VERBOSE	2
 # define BAD_OPT    4
-# define NO_OPT     5 
+# define NO_OPT     8 
+
 
 typedef struct  s_payload
 {

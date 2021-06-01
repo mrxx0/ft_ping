@@ -28,7 +28,7 @@ void parse_opt(char *str, t_payload *payload)
 {
     size_t i = 1;
 
-    while (str[i])
+    while (str[i] != '\0')
     {
         if (str[i] == 'h' || str[i] == 'v')
             payload->opt |= str[i] == 'h' ? HELP : VERBOSE;
@@ -42,7 +42,7 @@ void parse_opt(char *str, t_payload *payload)
 
 void find_opt(int argc, char **argv, t_payload *payload)
 {
-    int i = 0;
+    int i = 1;
     int j = 0;
     payload->opt = 0;
 
@@ -50,22 +50,8 @@ void find_opt(int argc, char **argv, t_payload *payload)
     {
         while (argv[i][j] != '\0')
         {
-            if (argv[i][j] == '-' && payload->opt == 0)
+            if (argv[i][j] == '-')
                 parse_opt(argv[i], payload);
-            // if (argv[i][j] == '-' && argv[i][j + 1] == 'h')
-            // {
-            //     payload->opt |= HELP;
-            //     if (argv[i][j + 2] == 'v')
-            //         payload->opt |= VERBOSE;
-            // }
-            // else if (argv[i][j] == '-' && argv[i][j + 1] == 'v')
-            // {
-            //     payload->opt |= VERBOSE;
-            //     if (argv[i][j + 2] == 'h')
-            //         payload->opt |= HELP;
-            // }
-            // else if (argv[i][j] == '-' && (argv[i][j + 1] != 'v' && argv[i][j + 1] != 'h'))
-            //     payload->opt |= BAD_OPT;
             j++;
         }
         j = 0;
@@ -86,19 +72,21 @@ _Bool parsing_arguments(int argc, char **argv)
         if (payload == MALLOC_FAILED)
             return (EXIT_FAILURE);
         find_opt(argc, argv, payload);
-        
-        if ((payload->opt & HELP) == 1)
-            printf("HELP\n");
-        if ((payload->opt & VERBOSE) == 2)
-            printf("VERBOSE\n");
-        if ((payload->opt & BAD_OPT) == 4)
-            printf("BAD_OPT\n");
-        if ((payload->opt & NO_OPT) == 5)
-            printf("NO_OPT\n");
+
+        // if ((payload->opt & HELP) == 1)
+        //     printf("HELP\n");
+        // if ((payload->opt & VERBOSE) == 2)
+        //     printf("VERBOSE\n");
+        // if ((payload->opt & BAD_OPT) == 4)
+        //     printf("BAD_OPT\n");
+        // if ((payload->opt & NO_OPT) == 8)
+        //     printf("NO_OPT\n");
             
-        if ((payload->opt & BAD_OPT) == 4)
+        if (((payload->opt & BAD_OPT) == 4)
+        || ((payload->opt & HELP) == 1)
+        || ((argc > 2 && (payload->opt & NO_OPT) == 5)))
         {
-             free(payload);
+            free(payload);
             return (EXIT_FAILURE);
         }
             // if (check_for_option(argv) == EXIT_FAILURE)
@@ -107,8 +95,8 @@ _Bool parsing_arguments(int argc, char **argv)
         //     return (EXIT_FAILURE);
         // printf("address = [%s]\n", payload->address);
     }
-    // if (payload->address != NULL)
-    //     free(payload->address);
+    if (payload->address != NULL)
+        free(payload->address);
     free(payload);
     return (EXIT_SUCCESS);
 }

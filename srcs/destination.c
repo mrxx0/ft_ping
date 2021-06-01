@@ -5,6 +5,8 @@ t_payload *create_payload(void)
     t_payload *payload = NULL;
 
     payload = malloc(sizeof(t_payload));
+    payload->address = NULL;
+    payload->opt = 0;
     return (payload);
 }
 
