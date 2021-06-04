@@ -3,8 +3,7 @@
 
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <sys/types.h>
-#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
@@ -26,7 +25,7 @@
 
 typedef struct  s_payload
 {
-    int     socket;
+    int     socket_fd;
     int     opt;
     int     id_opt;
     _Bool   found_address;
@@ -39,11 +38,12 @@ typedef struct  s_payload
 
 /*  FT_PING   */
 
-_Bool       parsing_arguments(int argc, char **argv);
+_Bool       parsing_arguments(int argc, char **argv, t_payload *payload);
 _Bool       check_for_option(char **argv, int8_t id_opt);
 _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv, t_payload *payload);
 t_payload   *create_payload(void);
+_Bool       init_socket(t_payload *payload);
 
 
 /*  LIBFT   */
@@ -51,6 +51,8 @@ t_payload   *create_payload(void);
 char	    *ft_strdup(const char *s1);
 size_t	    ft_strlen(const char *s);
 _Bool       ft_isdigit(char c);
+_Bool       ft_perror(char *error);
+
 
 
 #endif 
