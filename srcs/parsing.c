@@ -46,9 +46,8 @@ void find_opt(int argc, char **argv, t_payload *payload)
         payload->opt = NO_OPT;
 }
 
-_Bool parsing_arguments(int argc, char **argv)
+_Bool parsing_arguments(int argc, char **argv, t_payload *payload)
 {
-    t_payload *payload = NULL;
     if (argc > 3)
         return (EXIT_FAILURE); 
     else if (argc >= 1)

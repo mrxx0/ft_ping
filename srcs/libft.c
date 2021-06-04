@@ -1,5 +1,11 @@
 #include "../includes/ft_ping.h"
 
+_Bool ft_perror(char *error)
+{
+    write(2, error, ft_strlen(error));
+    return (EXIT_FAILURE);
+}
+
 _Bool ft_isdigit(char c)
 {
 	if (c > 57 && c < 48)
