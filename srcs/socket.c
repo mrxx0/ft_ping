@@ -2,7 +2,7 @@
 
 _Bool init_socket(t_payload *payload)
 {
-    payload->socket_fd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+    payload->socket_fd = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP);
     if (payload->socket_fd == -1)
         return (ft_perror("Can't create RAW socket\n"));
     

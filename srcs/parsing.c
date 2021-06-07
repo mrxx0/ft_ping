@@ -51,10 +51,8 @@ _Bool parsing_arguments(int argc, char **argv, t_payload *payload)
     if (argc > 3)
         return (EXIT_FAILURE); 
     else if (argc >= 1)
-    {
-        payload = create_payload();
-        if (payload == MALLOC_FAILED)
-            return (EXIT_FAILURE);
+    {        
+
         find_opt(argc, argv, payload);
 
         // if ((payload->opt & HELP) == 1)
@@ -70,18 +68,18 @@ _Bool parsing_arguments(int argc, char **argv, t_payload *payload)
         || ((payload->opt & HELP) == 1)
         || ((argc > 2 && (payload->opt & NO_OPT) == 5)))
         {
-            free(payload);
             return (EXIT_FAILURE);
         }
         if (get_destination(argc, argv, payload) == EXIT_FAILURE)
         {
+            printf("Error get_destination\n");
             free(payload);
             return (EXIT_FAILURE);
         }
-        printf("address = [%s]\n", payload->address);
+       
     }
-    if (payload->address != NULL)
-        free(payload->address);
-    free(payload);
+    // if (payload->address != NULL)
+    //     free(payload->address);
+    // free(payload);
     return (EXIT_SUCCESS);
 }
