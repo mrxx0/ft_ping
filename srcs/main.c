@@ -37,6 +37,12 @@ int main(int argc, char **argv)
             free(payload);
             return (EXIT_FAILURE);
         }
+        if (init_host(payload) == EXIT_FAILURE)
+        {
+            free(payload->address);
+            free(payload);
+            return (EXIT_FAILURE);
+        }
         print_payload(payload);
         free(payload->address);
         free(payload);
