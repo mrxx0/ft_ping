@@ -6,6 +6,7 @@ t_payload *create_payload(void)
 
     payload = malloc(sizeof(t_payload));
     payload->socket_fd = -1;
+    payload->ttl = 64;
     payload->address = NULL;
     payload->opt = 0;
     payload->id_opt = 0;
