@@ -1,5 +1,11 @@
 #include "../includes/ft_ping.h"
 
+_Bool init_host(t_payload *payload)
+{
+    (void)payload;
+    return (EXIT_SUCCESS);
+}
+
 _Bool init_socket(t_payload *payload)
 {
     struct timeval timeout;
