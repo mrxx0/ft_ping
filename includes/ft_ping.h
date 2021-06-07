@@ -26,11 +26,13 @@
 typedef struct  s_payload
 {
     int     socket_fd;
+    int     ttl;
     int     opt;
     int     id_opt;
-    _Bool   found_address;
-    char    pad[3];
     char    *address;
+    _Bool   found_address;
+    char    pad[7];
+
 
 
 }               t_payload;
