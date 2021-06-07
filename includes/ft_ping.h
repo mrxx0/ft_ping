@@ -10,7 +10,6 @@
 #include <signal.h>
 #include <stdlib.h>
 
-
 #define FAILURE -1
 
 #define TRUE 1
@@ -22,7 +21,6 @@
 # define VERBOSE	2
 # define BAD_OPT    4
 # define NO_OPT     8 
-
 
 typedef struct  s_payload
 {
@@ -47,6 +45,8 @@ _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv, t_payload *payload);
 t_payload   *create_payload(void);
 _Bool       init_socket(t_payload *payload);
+_Bool       init_host(t_payload *payload);
+
 
 
 /*  LIBFT   */
