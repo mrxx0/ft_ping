@@ -1,5 +1,17 @@
 #include "../includes/ft_ping.h"
 
+void *ft_memcpy(void *dst, const void *src, size_t size)
+{
+	size_t i = 0;
+
+	while (i < size)
+	{
+		((char*)dst)[i] = ((char*)src)[i];
+		i++;
+	}
+	return (dst);
+}
+
 _Bool ft_perror(char *error)
 {
     write(2, error, ft_strlen(error));

@@ -25,13 +25,16 @@
 
 extern struct  s_payload
 {
-    int          socket_fd;
-    int          ttl;
-    int          opt;
-    int          id_opt;
-    char         *address;
-    socklen_t    addrlen;
-    char         pad[4];
+    int             socket_fd;
+    int             ttl;
+    int             opt;
+    int             id_opt;
+    long            timeout;
+    char            *address;
+    socklen_t       addrlen;
+    struct sockaddr addr;
+    char            pad2[4];
+
 
 
 
@@ -55,6 +58,8 @@ char	    *ft_strdup(const char *s1);
 size_t	    ft_strlen(const char *s);
 _Bool       ft_isdigit(char c);
 _Bool       ft_perror(char *error);
+void        *ft_memcpy(void *dst, const void *src, size_t size);
+
 
 
 
