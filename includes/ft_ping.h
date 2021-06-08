@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <stdlib.h>
+#include <netdb.h>
 
 #define FAILURE -1
 
@@ -22,14 +23,15 @@
 # define BAD_OPT    4
 # define NO_OPT     8 
 
-typedef struct  s_payload
+extern struct  s_payload
 {
-    int     socket_fd;
-    int     ttl;
-    int     opt;
-    int     id_opt;
-    char    *address;
-    // char    pad[8];
+    int          socket_fd;
+    int          ttl;
+    int          opt;
+    int          id_opt;
+    char         *address;
+    socklen_t    addrlen;
+    char         pad[4];
 
 
 
@@ -38,13 +40,12 @@ typedef struct  s_payload
 
 /*  FT_PING   */
 
-_Bool       parsing_arguments(int argc, char **argv, t_payload *payload);
+_Bool       parsing_arguments(int argc, char **argv);
 _Bool       check_for_option(char **argv, int8_t id_opt);
 _Bool       print_help(void);
-_Bool       get_destination(int argc, char **argv, t_payload *payload);
-t_payload   *create_payload(void);
-_Bool       init_socket(t_payload *payload);
-_Bool       init_host(t_payload *payload);
+_Bool       get_destination(int argc, char **argv);
+_Bool       init_socket();
+_Bool       init_host();
 
 
 

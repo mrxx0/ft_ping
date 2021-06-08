@@ -1,15 +1,15 @@
 #include "../includes/ft_ping.h"
 
-_Bool    get_destination(int argc, char **argv, t_payload *payload)
+_Bool    get_destination(int argc, char **argv)
 {
     int i = 1;
 
     while (i < argc)
     {
-        if (i != payload->id_opt)
+        if (i != t_payload.id_opt)
         {
-            payload->address = ft_strdup(argv[i]);
-            if (payload->address == MALLOC_FAILED)
+            t_payload.address = ft_strdup(argv[i]);
+            if (t_payload.address == MALLOC_FAILED)
                 return (ft_perror("Malloc failed\n"));
             return (EXIT_SUCCESS);
         }
