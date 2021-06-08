@@ -17,6 +17,7 @@
 #define FALSE 0
 
 #define MALLOC_FAILED NULL
+#define VALID_ROOT_UID 0
 
 # define HELP	    1
 # define VERBOSE	2

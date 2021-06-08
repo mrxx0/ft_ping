@@ -11,7 +11,7 @@ void print_payload()
 
 int main(int argc, char **argv)
 {    
-    if (getuid() != 0)
+    if (getuid() != VALID_ROOT_UID)
     {
         write(2, "ft_ping : You need to be root.\n", ft_strlen("ft_ping : You need to be root.\n"));
         return (EXIT_FAILURE);
