@@ -10,6 +10,5 @@ t_payload *create_payload(void)
     payload->address = NULL;
     payload->opt = 0;
     payload->id_opt = 0;
-    payload->found_address = 0;
     return (payload);
 }

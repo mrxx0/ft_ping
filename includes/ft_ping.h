@@ -29,8 +29,7 @@ typedef struct  s_payload
     int     opt;
     int     id_opt;
     char    *address;
-    _Bool   found_address;
-    char    pad[7];
+    // char    pad[8];
 
 
 

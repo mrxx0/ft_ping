@@ -7,7 +7,6 @@ void print_payload(t_payload *payload)
     printf("opt = [%d]\n", payload->opt);
     printf("id_opt = [%d]\n", payload->id_opt);
     printf("address = [%s]\n", payload->address);
-    printf("found_address = [%d]\n", payload->found_address);
 }
 
 int main(int argc, char **argv)

@@ -6,7 +6,7 @@ _Bool    get_destination(int argc, char **argv, t_payload *payload)
 
     while (i < argc)
     {
-        if (i != payload->id_opt && payload->found_address == 0)
+        if (i != payload->id_opt)
         {
             payload->address = ft_strdup(argv[i]);
             if (payload->address == MALLOC_FAILED)
