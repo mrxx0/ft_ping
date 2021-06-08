@@ -1,5 +1,14 @@
 #include "../includes/ft_ping.h"
 
+struct s_payload t_payload = {
+    .socket_fd = 0,
+    .ttl = 64,
+    .opt = 0,
+    .id_opt = 0,
+    .timeout = 1,
+    .address = NULL
+};
+
 _Bool init_host()
 {
     struct addrinfo *addr = NULL;
@@ -14,16 +23,15 @@ _Bool init_host()
         return (EXIT_FAILURE);
     }
     t_payload.addrlen = addr->ai_addrlen;
+    ft_memcpy(&t_payload.addr, addr->ai_addr, sizeof(addr->ai_addr));
+    
     free(addr);
     return (EXIT_SUCCESS);
 }
 
 _Bool init_socket()
-{
-    struct timeval timeout;
-
-    timeout.tv_sec = 1;
-    // timeout.tv_usec = 0;
+{   
+    struct timeval timeout = { .tv_sec = 1 };
 
     t_payload.socket_fd = socket(PF_INET, SOCK_RAW, IPPROTO_ICMP);
     if (t_payload.socket_fd == -1)

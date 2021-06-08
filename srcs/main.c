@@ -1,14 +1,5 @@
 #include "../includes/ft_ping.h"
 
-
-struct s_payload t_payload = {
-    .socket_fd = 0,
-    .ttl = 0,
-    .opt = 0,
-    .id_opt = 0,
-    .address = NULL
-};
-
 void print_payload()
 {
     printf("socket_fd = [%d]\n", t_payload.socket_fd);
