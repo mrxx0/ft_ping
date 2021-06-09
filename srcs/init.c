@@ -25,6 +25,8 @@ _Bool init_host()
     t_payload.addrlen = addr->ai_addrlen;
     ft_memcpy(&t_payload.addr, addr->ai_addr, sizeof(addr->ai_addr));
     
+    inet_ntop(addr->ai_family, &((struct sockaddr_in*)addr->ai_addr)->sin_addr, t_payload.address, sizeof(t_payload.address));
+
     free(addr);
     return (EXIT_SUCCESS);
 }

@@ -20,28 +20,15 @@ int main(int argc, char **argv)
     {
         if (parsing_arguments(argc, argv) == EXIT_FAILURE)
         {
-            // free(t_payload.address);
-            // free(payload);
             print_help();
             return (EXIT_FAILURE);
         }
-                print_payload();
-
+        print_payload();
         if (init_socket() == EXIT_FAILURE)
-        {
-            // free(t_payload.address);
-            // free(payload);
             return (EXIT_FAILURE);
-        }
         if (init_host() == EXIT_FAILURE)
-        {
-            // free(t_payload.address);
-            // free(payload);
             return (EXIT_FAILURE);
-        }
-        // free(&t_payload.addrlen);
-        // free(t_payload.address);
-        // free(payload);
+        loop();
     }
     else
         print_help();

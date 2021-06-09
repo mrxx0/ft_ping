@@ -50,6 +50,8 @@ _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv);
 _Bool       init_socket();
 _Bool       init_host();
+void        loop();
+
 
 
 
