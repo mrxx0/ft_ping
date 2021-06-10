@@ -78,8 +78,8 @@ _Bool parsing_arguments(int argc, char **argv)
         }
        
     }
-    // if (t_payload.address != NULL)
-    //     free(t_payload.address);
+    // if (t_payload.destination_address != NULL)
+    //     free(t_payload.destination_address);
     // free(payload);
     return (EXIT_SUCCESS);
 }

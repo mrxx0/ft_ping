@@ -8,8 +8,8 @@ _Bool    get_destination(int argc, char **argv)
     {
         if (i != t_payload.id_opt)
         {
-            t_payload.address = ft_strdup(argv[i]);
-            if (t_payload.address == MALLOC_FAILED)
+            t_payload.destination_address = ft_strdup(argv[i]);
+            if (t_payload.destination_address == MALLOC_FAILED)
                 return (ft_perror("Malloc failed\n"));
             return (EXIT_SUCCESS);
         }

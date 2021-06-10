@@ -3,9 +3,10 @@
 void send_request()
 {
     struct icmphdr *icmp = NULL;
+    (void)icmp;
 }
 
 void loop()
 {
-    printf("ft_ping %s (%s)\n", t_payload.address, t_payload.address);
+    printf("ft_ping %s (%s)\n", t_payload.destination_address, t_payload.destination_address);
 }

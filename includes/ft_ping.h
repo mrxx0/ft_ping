@@ -31,7 +31,7 @@ extern struct  s_payload
     int             opt;
     int             id_opt;
     long            timeout;
-    char            *address;
+    char            *destination_address;
     socklen_t       addrlen;
     struct sockaddr addr;
     char            pad2[4];
@@ -49,7 +49,7 @@ _Bool       check_for_option(char **argv, int8_t id_opt);
 _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv);
 _Bool       init_socket();
-_Bool       init_host();
+_Bool       init_destination();
 void        loop();
 
 
