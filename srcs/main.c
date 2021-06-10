@@ -7,6 +7,7 @@ void print_payload()
     printf("opt = [%d]\n", t_payload.opt);
     printf("id_opt = [%d]\n", t_payload.id_opt);
     printf("address = [%s]\n", t_payload.destination_address);
+    printf("ip = [%s]\n", t_payload.destination_ip);
 }
 
 int main(int argc, char **argv)
@@ -23,12 +24,12 @@ int main(int argc, char **argv)
             print_help();
             return (EXIT_FAILURE);
         }
-        // print_payload();
+        print_payload();
         if (init_socket() == EXIT_FAILURE)
             return (EXIT_FAILURE);
         if (init_destination() == EXIT_FAILURE)
             return (EXIT_FAILURE);
-        loop();
+        // loop();
     }
     else
         print_help();

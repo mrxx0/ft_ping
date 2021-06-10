@@ -7,9 +7,11 @@ struct s_payload t_payload = {
     .id_opt = 0,
     .timeout = 1,
     .destination_address = {0},
-    .destination_ip = NULL,
+    .destination_ip = {0},
     .data_size = 0
 };
+
+// Check if destination (host)
 
 _Bool init_destination()
 {
@@ -33,6 +35,8 @@ _Bool init_destination()
 
     return (EXIT_SUCCESS);
 }
+
+// Init socket and set option
 
 _Bool init_socket()
 {   
