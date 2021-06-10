@@ -6,7 +6,9 @@ struct s_payload t_payload = {
     .opt = 0,
     .id_opt = 0,
     .timeout = 1,
-    .destination_address = NULL
+    .destination_address = {0},
+    .destination_ip = NULL,
+    .data_size = 0
 };
 
 _Bool init_destination()
@@ -16,7 +18,7 @@ _Bool init_destination()
     tmp.ai_family = PF_INET;
     tmp.ai_socktype = SOCK_RAW;
     tmp.ai_protocol = IPPROTO_ICMP;
-    if (getaddrinfo(t_payload.destination_address, NULL, &tmp, &addr))
+    if (getaddrinfo(t_payload.destination_address, NULL, &tmp, &addr) != EXIT_SUCCESS)
     {
         free(addr);
         fprintf(stderr, "ft_ping : %s : Name or service not known\n", t_payload.destination_address);
@@ -25,9 +27,10 @@ _Bool init_destination()
     t_payload.addrlen = addr->ai_addrlen;
     ft_memcpy(&t_payload.addr, addr->ai_addr, sizeof(addr->ai_addr));
     
-    inet_ntop(addr->ai_family, &((struct sockaddr_in*)addr->ai_addr)->sin_addr, t_payload.destination_address, sizeof(t_payload.destination_address));
+    inet_ntop(addr->ai_family, &((struct sockaddr_in*)addr->ai_addr)->sin_addr, t_payload.destination_ip, sizeof(t_payload.destination_ip));
 
     free(addr);
+
     return (EXIT_SUCCESS);
 }
 

@@ -73,13 +73,10 @@ _Bool parsing_arguments(int argc, char **argv)
         if (get_destination(argc, argv) == EXIT_FAILURE)
         {
             printf("Error get_destination\n");
-            // free(payload);
             return (EXIT_FAILURE);
         }
+
        
     }
-    // if (t_payload.destination_address != NULL)
-    //     free(t_payload.destination_address);
-    // free(payload);
     return (EXIT_SUCCESS);
 }

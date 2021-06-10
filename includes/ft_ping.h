@@ -11,12 +11,8 @@
 #include <stdlib.h>
 #include <netdb.h>
 
-#define FAILURE -1
-
-#define TRUE 1
-#define FALSE 0
-
 #define MALLOC_FAILED NULL
+
 #define VALID_ROOT_UID 0
 
 # define HELP	    1
@@ -24,23 +20,26 @@
 # define BAD_OPT    4
 # define NO_OPT     8 
 
+# define ICMP_PACKET_SIZE 56
+# define ICMP_HEADER_SIZE sizeof(struct icmphdr)
+
 extern struct  s_payload
 {
     int             socket_fd;
     int             ttl;
     int             opt;
     int             id_opt;
+    int             data_size;
+    char            pad[4];
     long            timeout;
-    char            *destination_address;
+    char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
+    char            pad_2[7];
+    char            *destination_ip;
     socklen_t       addrlen;
     struct sockaddr addr;
-    char            pad2[4];
-
-
-
+    char            pad_3[4];
 
 }               t_payload;
-
 
 /*  FT_PING   */
 
@@ -52,9 +51,6 @@ _Bool       init_socket();
 _Bool       init_destination();
 void        loop();
 
-
-
-
 /*  LIBFT   */
 
 char	    *ft_strdup(const char *s1);
@@ -62,8 +58,5 @@ size_t	    ft_strlen(const char *s);
 _Bool       ft_isdigit(char c);
 _Bool       ft_perror(char *error);
 void        *ft_memcpy(void *dst, const void *src, size_t size);
-
-
-
 
 #endif 
