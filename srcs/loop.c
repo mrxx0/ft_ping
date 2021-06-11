@@ -8,6 +8,5 @@ void send_request()
 
 void loop()
 {
-
     printf("ft_ping (%s) %s\n", t_payload.destination_address, t_payload.destination_address);
 }
