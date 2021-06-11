@@ -11,6 +11,15 @@ struct s_payload t_payload = {
     .data_size = 0
 };
 
+void init_icmp(struct icmphdr *icmp)
+{
+    icmp->type = ICMP_ECHO;
+    icmp->code = 0;
+    icmp->checksum = 0;
+    icmp->un.echo.id = getpid();
+    icmp->un.echo.sequence = 0;
+}
+
 // Check if destination (host)
 
 _Bool init_destination()

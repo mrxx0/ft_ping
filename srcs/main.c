@@ -28,9 +28,8 @@ int main(int argc, char **argv)
             return (EXIT_FAILURE);
         if (init_destination() == EXIT_FAILURE)
             return (EXIT_FAILURE);
-                print_payload();
-
-        // loop();
+        print_payload();
+        loop();
     }
     else
         print_help();

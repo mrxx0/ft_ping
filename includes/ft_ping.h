@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <arpa/inet.h>
+#include <linux/icmp.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
@@ -49,6 +50,8 @@ _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv);
 _Bool       init_socket();
 _Bool       init_destination();
+void        init_icmp(struct icmphdr *icmp);
+
 void        loop();
 
 /*  LIBFT   */
