@@ -2,11 +2,11 @@
 
 void send_request()
 {
-    size_t  ctr_sent;
+    size_t  bytes_sent;
     char    tmp[ICMP_HEADER_SIZE + ICMP_PACKET_SIZE];
     char    *ptr = tmp + ICMP_HEADER_SIZE;
     struct icmphdr *icmp = (struct icmphdr*)tmp;
-    (void)ctr_sent;
+    (void)bytes_sent;
     (void)ptr;
 
     init_icmp(icmp);
