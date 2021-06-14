@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <arpa/inet.h>
 #include <linux/icmp.h>
+#include <linux/ip.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
@@ -23,6 +24,7 @@
 
 # define ICMP_PACKET_SIZE 56
 # define ICMP_HEADER_SIZE sizeof(struct icmphdr)
+# define IP_HEADER_SIZE sizeof(struct iphdr)
 
 extern struct  s_payload
 {
