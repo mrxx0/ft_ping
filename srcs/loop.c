@@ -4,7 +4,7 @@ _Bool receive_response()
 {
     char            receive_tmp[128];
     int             receive_flag = 0;
-    size_t          receive_size;
+    size_t          receive_bytes;
     struct sockaddr receive_dst;
     struct iovec    receive_iov;
     struct msghdr   receive_msg;
@@ -20,10 +20,10 @@ _Bool receive_response()
 
     while (42)
     {
-        receive_size = recvmsg(t_payload.socket_fd, &receive_msg, receive_flag);
+        receive_bytes = recvmsg(t_payload.socket_fd, &receive_msg, receive_flag);
         receive_flag = MSG_DONTWAIT;
 
-        if (receive_size < 0)
+        if (receive_bytes < 0) // Socket marked nonblocking
         {
             printf("TIMEOUT\n");
             return (EXIT_FAILURE);
