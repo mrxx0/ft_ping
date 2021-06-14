@@ -1,12 +1,16 @@
 #include "../includes/ft_ping.h"
 
+_Bool receive_response()
+{
+    return (EXIT_SUCCESS);
+}
+
 void send_request()
 {
     size_t  bytes_sent;
     char    tmp[t_payload.data_size];
     // char    *ptr = tmp + ICMP_HEADER_SIZE;
     struct icmphdr *icmp = (struct icmphdr*)tmp;
-    (void)bytes_sent;
 
     init_icmp(icmp);
     printf("\n\nicmp->type = %d\n", icmp->type);
@@ -25,6 +29,11 @@ void send_request()
 
 void loop()
 {
-    send_request();
-    printf("ft_ping (%s) %s\n", t_payload.destination_address, t_payload.destination_address);
+    printf("ft_ping %s (%s) %lu(%d) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, t_payload.data_size - ICMP_HEADER_SIZE, t_payload.data_size);
+    while (1)
+    {
+        send_request();
+        if (receive_response() == EXIT_FAILURE)
+            //wait_to_receive();
+    }
 }
