@@ -65,5 +65,6 @@ void        *ft_memcpy(void *dst, const void *src, size_t size);
 /*  UTILS   */
 
 void free_addrinfo(struct addrinfo *addr);
+uint16_t checksum(struct icmphdr *to_check, size_t size);
 
 #endif 
