@@ -7,8 +7,7 @@ struct s_payload t_payload = {
     .id_opt = 0,
     .timeout = 1,
     .destination_address = {0},
-    .destination_ip = {0},
-    .data_size = ICMP_HEADER_SIZE + ICMP_PACKET_SIZE
+    .destination_ip = {0}
 };
 
 void init_icmp(struct icmphdr *icmp)

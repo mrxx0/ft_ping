@@ -2,14 +2,14 @@
 
 _Bool receive_response()
 {
-    char            receive_tmp[128];
-    int             receive_flag = 0;
-    size_t          receive_bytes;
-    struct sockaddr receive_dst;
-    struct iovec    receive_iov;
-    struct msghdr   receive_msg;
-    // struct iphdr    *receive_ip = (struct iphdr *) receive_tmp;
-    struct icmphdr  *receive_icmp = (struct icmphdr *) (receive_tmp + IP_HEADER_SIZE);
+    char                receive_tmp[128];
+    int                 receive_flag = 0;
+    ssize_t             receive_bytes;
+    struct sockaddr     receive_dst;
+    struct iovec        receive_iov;
+    struct msghdr       receive_msg;
+    // struct iphdr     *receive_ip = (struct iphdr *) receive_tmp;
+    struct icmphdr      *receive_icmp = (struct icmphdr *) (receive_tmp + IP_HEADER_SIZE);
 
     receive_iov.iov_base = receive_tmp;
     receive_iov.iov_len = sizeof(receive_tmp);
@@ -25,7 +25,7 @@ _Bool receive_response()
 
         if (receive_bytes < 0) // Socket marked nonblocking
         {
-            printf("TIMEOUT\n");
+            printf("TIMEOUT -> %zd\n", receive_bytes);
             return (EXIT_FAILURE);
         }
         if (receive_icmp->un.echo.id != getpid())
@@ -37,7 +37,7 @@ _Bool receive_response()
             printf("This is not an echo reply\n");
             return (EXIT_FAILURE);
         }
-        printf("RECEIVE OK\n");
+        printf("RECEIVE [%zu bytes ]OK\n", receive_bytes);
     }
     return (EXIT_SUCCESS);
 }
@@ -45,7 +45,7 @@ _Bool receive_response()
 void send_request()
 {
     size_t  send_bytes;
-    char    send_tmp[t_payload.data_size];
+    char    send_tmp[ICMP_SIZE];
     // char    *ptr = tmp + ICMP_HEADER_SIZE;
     struct icmphdr *send_icmp = (struct icmphdr*)send_tmp;
 
@@ -58,15 +58,15 @@ void send_request()
     /* 
     Need to fill the ICMP packet with random data
     */
-    send_icmp->checksum = checksum(send_icmp, t_payload.data_size);
+    send_icmp->checksum = checksum(send_icmp, ICMP_SIZE);
     printf("%u\n", send_icmp->checksum);
-    send_bytes = sendto(t_payload.socket_fd, send_icmp, t_payload.data_size, 0, &t_payload.addr, t_payload.addrlen);
+    send_bytes = sendto(t_payload.socket_fd, send_icmp, ICMP_SIZE, 0, &t_payload.addr, t_payload.addrlen);
     printf("%zu\n", send_bytes);
 }
 
 void loop()
 {
-    printf("ft_ping %s (%s) %lu(%d) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, t_payload.data_size - ICMP_HEADER_SIZE, t_payload.data_size);
+    printf("ft_ping %s (%s) %lu(%lu) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, ICMP_SIZE - ICMP_HEADER_SIZE, ICMP_SIZE);
     while (1)
     {
         send_request();
