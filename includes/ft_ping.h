@@ -13,8 +13,6 @@
 #include <stdlib.h>
 #include <netdb.h>
 
-#define MALLOC_FAILED NULL
-
 #define VALID_ROOT_UID 0
 
 # define HELP	    1
@@ -24,6 +22,7 @@
 
 # define ICMP_PACKET_SIZE 56
 # define ICMP_HEADER_SIZE sizeof(struct icmphdr)
+# define ICMP_SIZE ICMP_PACKET_SIZE + ICMP_HEADER_SIZE
 # define IP_HEADER_SIZE sizeof(struct iphdr)
 
 extern struct  s_payload
@@ -32,8 +31,6 @@ extern struct  s_payload
     int             ttl;
     int             opt;
     int             id_opt;
-    int             data_size;
-    char            pad[4];
     long            timeout;
     char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
     char            pad_2[7];
