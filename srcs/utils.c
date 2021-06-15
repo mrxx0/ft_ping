@@ -10,16 +10,3 @@ uint16_t checksum(struct icmphdr *to_check, size_t size)
     }
     return (tmp);
 }
-
-void free_addrinfo(struct addrinfo *addr)
-{
-    struct addrinfo *tmp;
-
-    while (addr != NULL)
-    {
-        free(addr->ai_canonname);
-        tmp = addr;
-        addr = addr->ai_next;
-        free(tmp);
-    }
-}
