@@ -12,6 +12,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <netdb.h>
+#include <string.h> // memset
 
 #define VALID_ROOT_UID 0
 
@@ -25,18 +26,26 @@
 # define ICMP_SIZE ICMP_PACKET_SIZE + ICMP_HEADER_SIZE
 # define IP_HEADER_SIZE sizeof(struct iphdr)
 
+// ICMP_PACKET_SIZE = 56
+// ICMP_HEADER_SIZE = 8
+// ICMP_SIZE = 64
+// IP_HEADER_SIZE = 20
+
 extern struct  s_payload
 {
     int             socket_fd;
     int             ttl;
     int             opt;
     int             id_opt;
+    int             seq;
+    char            pad[4];
     long            timeout;
     char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
     char            pad_2[7];
     char            destination_ip[INET_ADDRSTRLEN]; // maximum IP len
     socklen_t       addrlen;
     struct sockaddr addr;
+    struct sockaddr_in addr2;
     char            pad_3[4];
 
 }               t_payload;
@@ -49,8 +58,8 @@ _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv);
 _Bool       init_socket();
 _Bool       init_destination();
-void        init_icmp(struct icmphdr *icmp);
-
+void        init_ip (void *ip);
+void        init_icmp(void *icmp);
 void        loop();
 
 /*  LIBFT   */
@@ -63,7 +72,6 @@ void        *ft_memcpy(void *dst, const void *src, size_t size);
 
 /*  UTILS   */
 
-void free_addrinfo(struct addrinfo *addr);
 uint16_t checksum(struct icmphdr *to_check, size_t size);
 
 #endif 
