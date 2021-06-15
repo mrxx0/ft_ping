@@ -1,10 +1,10 @@
 #include "../includes/ft_ping.h"
-
+#include <errno.h>
 _Bool receive_response()
 {
     char                receive_tmp[128];
     int                 receive_flag = 0;
-    ssize_t             receive_bytes;
+    // ssize_t             receive_bytes;
     struct sockaddr     receive_dst;
     struct iovec        receive_iov;
     struct msghdr       receive_msg;
@@ -13,19 +13,42 @@ _Bool receive_response()
 
     receive_iov.iov_base = receive_tmp;
     receive_iov.iov_len = sizeof(receive_tmp);
+    
     receive_msg.msg_name = (void*)&receive_dst;
     receive_msg.msg_namelen = sizeof(receive_dst);
     receive_msg.msg_iov = &receive_iov;
     receive_msg.msg_iovlen = 1;
+    receive_msg.msg_control = receive_tmp;
+    receive_msg.msg_controllen = sizeof(receive_tmp);
+    receive_msg.msg_flags = 0;
 
     while (42)
     {
-        receive_bytes = recvmsg(t_payload.socket_fd, &receive_msg, receive_flag);
+        printf("Socket_fd = %d\n", t_payload.socket_fd);
+       ssize_t receive_bytes = recvmsg(t_payload.socket_fd, &receive_msg, receive_flag);
+        
         receive_flag = MSG_DONTWAIT;
 
         if (receive_bytes < 0) // Socket marked nonblocking
         {
             printf("TIMEOUT -> %zd\n", receive_bytes);
+            if (errno == EBADF)
+                printf("Bad FD\n");
+            if (errno == EAGAIN
+                || errno == EWOULDBLOCK)
+                printf("Non blocking\n");
+            if (errno == ECONNREFUSED)
+                printf("remote refused connection\n");
+            if (errno == EFAULT)
+                printf("Error buffer\n");
+            if (errno == EINTR)
+                printf("Signal interruption\n");
+            if (errno == EINVAL)
+                printf("Invalid argument passed\n");
+            if (errno == ENOMEM)
+                printf("Could not allocate memory\n");
+            if (errno == ENOTSOCK)
+                printf("File descriptor does not refer to a socket\n");
             return (EXIT_FAILURE);
         }
         if (receive_icmp->un.echo.id != getpid())
@@ -37,8 +60,9 @@ _Bool receive_response()
             printf("This is not an echo reply\n");
             return (EXIT_FAILURE);
         }
-        printf("RECEIVE [%zu bytes ]OK\n", receive_bytes);
+        printf("RECEIVE [%zd bytes ]OK\n", receive_bytes);
     }
+
     return (EXIT_SUCCESS);
 }
 
@@ -52,7 +76,6 @@ void send_request()
     init_icmp(send_icmp);
     printf("\n\nicmp->type = %d\n", send_icmp->type);
     printf("icmp->code = %d\n", send_icmp->code);
-    printf("icmp->checksum = %d\n", send_icmp->checksum);
     printf("icmp->un.echo.id = %d\n", send_icmp->un.echo.id);
 
     /* 
