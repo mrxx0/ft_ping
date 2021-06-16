@@ -2,8 +2,8 @@
 
 _Bool receive_response(struct sockaddr_in sockaddr)
 {
-    char                receive_tmp[128];
-    // char                packet[ICMP_SIZE + IP_HEADER_SIZE];
+    // char                receive_tmp[128];
+    char                packet[ICMP_SIZE + IP_HEADER_SIZE];
     ssize_t             receive_bytes;
     // struct iovec        receive_iov =
     // {
@@ -12,8 +12,8 @@ _Bool receive_response(struct sockaddr_in sockaddr)
     // };
     struct iovec        receive_iov =
     {
-        .iov_base = receive_tmp,
-        .iov_len = sizeof(receive_tmp)
+        .iov_base = packet,
+        .iov_len = sizeof(packet)
     };
     struct msghdr       receive_msg = 
     {
@@ -21,8 +21,8 @@ _Bool receive_response(struct sockaddr_in sockaddr)
         .msg_namelen = sizeof(sockaddr),
         .msg_iov = &receive_iov,
         .msg_iovlen = 1,
-        .msg_control = receive_tmp,
-        .msg_controllen = sizeof(receive_tmp),
+        .msg_control = packet,
+        .msg_controllen = sizeof(packet),
         .msg_flags = 0
     };
     printf("receiving...\n");
