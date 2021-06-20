@@ -1,5 +1,5 @@
 NAME = ft_ping
-CC = clang
+CC = clang-9
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
