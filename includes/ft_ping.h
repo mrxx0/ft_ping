@@ -44,8 +44,7 @@ extern struct  s_payload
     char            pad_2[7];
     char            destination_ip[INET_ADDRSTRLEN]; // maximum IP len
     socklen_t       addrlen;
-    struct sockaddr addr;
-    struct sockaddr_in addr2;
+    struct sockaddr_in receive;
     char            pad_3[4];
 
 }               t_payload;

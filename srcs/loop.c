@@ -39,7 +39,7 @@ void send_request()
     t_payload.seq++;
     init_ip(send_tmp);
     init_icmp(send_tmp + IP_HEADER_SIZE);
-    send_bytes = sendto(t_payload.socket_fd, send_tmp, ICMP_SIZE + IP_HEADER_SIZE, 0, &t_payload.addr, t_payload.addrlen);
+    send_bytes = sendto(t_payload.socket_fd, send_tmp, ICMP_SIZE + IP_HEADER_SIZE, 0, (const struct sockaddr *)&t_payload.receive, t_payload.addrlen);
     printf("send ok with %zd bytes\n", send_bytes);
     
 }
@@ -50,7 +50,7 @@ void loop()
     while (1)
     {
         send_request();
-        receive_response(t_payload.addr2);
+        receive_response(t_payload.receive);
         // if (receive_response() == EXIT_FAILURE)
         //     printf("RECEIVE KO\n");
         //     //wait_to_receive();

@@ -9,7 +9,7 @@ struct s_payload t_payload = {
     .timeout = 1,
     .destination_address = {0},
     .destination_ip = {0},
-    .addr2 =
+    .receive =
     {
         .sin_family = PF_INET,
         .sin_port = 0
@@ -28,7 +28,7 @@ void fill_ip (struct iphdr *ip)
 	ip->protocol = IPPROTO_ICMP;
 	ip->check = 0;
 	ip->saddr = INADDR_ANY;
-	ip->daddr = t_payload.addr2.sin_addr.s_addr;
+	ip->daddr = t_payload.receive.sin_addr.s_addr;
 }
 
 void init_ip (void *ip)
@@ -80,7 +80,7 @@ _Bool init_destination()
         return (EXIT_FAILURE);
     }
     t_payload.addrlen = addr->ai_addrlen;
-    ft_memcpy(&t_payload.addr, addr->ai_addr, sizeof(addr->ai_addr));
+    ft_memcpy(&t_payload.receive, addr->ai_addr, sizeof(addr->ai_addr));
     // t_payload.addr2.sin_addr.s_addr = ((struct sockaddr_in*)addr->ai_addr)->sin_addr.s_addr;
 
     inet_ntop(addr->ai_family, &((struct sockaddr_in*)addr->ai_addr)->sin_addr, t_payload.destination_ip, sizeof(t_payload.destination_ip));
