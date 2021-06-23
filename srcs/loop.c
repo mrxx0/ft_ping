@@ -1,47 +1,60 @@
 #include "../includes/ft_ping.h"
 
-_Bool receive_response(struct sockaddr_in sockaddr)
+void receive_echo_response(int socket, struct sockaddr_in sockaddr, char *packet)
 {
-    // char                receive_tmp[128];
-    char                packet[ICMP_SIZE + IP_HEADER_SIZE];
-    ssize_t             receive_bytes;
-    // struct iovec        receive_iov =
-    // {
-    //     .iov_base = packet,
-    //     .iov_len = ICMP_SIZE + IP_HEADER_SIZE
-    // };
-    struct iovec        receive_iov =
+    char    tmp[512];
+    ssize_t receive_bytes = 0;
+    struct iovec io = 
     {
         .iov_base = packet,
-        .iov_len = sizeof(packet)
+        .iov_len = 84
     };
-    struct msghdr       receive_msg = 
+    struct msghdr msg = 
     {
         .msg_name = &sockaddr,
         .msg_namelen = sizeof(sockaddr),
-        .msg_iov = &receive_iov,
+        .msg_iov = &io,
         .msg_iovlen = 1,
-        .msg_control = packet,
-        .msg_controllen = sizeof(packet),
+        .msg_control = tmp,
+        .msg_controllen = sizeof(tmp),
         .msg_flags = 0
     };
-    printf("receiving...\n");
-    receive_bytes = recvmsg(t_payload.socket_fd, &receive_msg, 0);
-    printf("receive_byte = %zd\n", receive_bytes);
+    printf("%d\n", t_payload.seq);
+    receive_bytes = recvmsg(socket, &msg, 0);
+    if (receive_bytes == -1)
+        printf("OUPS\n");
+    printf("%zd bytes receive\n", receive_bytes);
+}
+
+_Bool receive_response()
+{
+    char    receive_packet[84];
+
+    while (1)
+    {
+        receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet);
+
+    }
     return (EXIT_SUCCESS);
 }
 
+void send_echo_request(int socket, const struct sockaddr *dst, char *packet)
+{
+    ssize_t bytes_sent;
+
+    bytes_sent = sendto(socket, packet, IP_HEADER_SIZE + ICMP_SIZE, 0, dst, sizeof(*dst));
+    printf("%zd bytes sent\n", bytes_sent);
+
+}
 void send_request()
 {
-    ssize_t  send_bytes;
-    char    send_tmp[ICMP_SIZE + IP_HEADER_SIZE];
+    char    packet_sent[ICMP_SIZE + IP_HEADER_SIZE];
 
     t_payload.seq++;
-    init_ip(send_tmp);
-    init_icmp(send_tmp + IP_HEADER_SIZE);
-    send_bytes = sendto(t_payload.socket_fd, send_tmp, ICMP_SIZE + IP_HEADER_SIZE, 0, (const struct sockaddr *)&t_payload.receive, t_payload.addrlen);
-    printf("send ok with %zd bytes\n", send_bytes);
-    
+
+    init_ip(packet_sent, t_payload.receive.sin_addr.s_addr);
+    init_icmp(packet_sent + IP_HEADER_SIZE);
+    send_echo_request(t_payload.socket_fd, (const struct sockaddr *)&t_payload.receive, packet_sent);
 }
 
 void loop()
@@ -50,7 +63,7 @@ void loop()
     while (1)
     {
         send_request();
-        receive_response(t_payload.receive);
+        receive_response();
         // if (receive_response() == EXIT_FAILURE)
         //     printf("RECEIVE KO\n");
         //     //wait_to_receive();
