@@ -57,7 +57,7 @@ _Bool       print_help(void);
 _Bool       get_destination(int argc, char **argv);
 _Bool       init_socket();
 _Bool       init_destination();
-void        init_ip (void *ip);
+void        init_ip (void *ip, u_int32_t dst);
 void        init_icmp(void *icmp);
 void        loop();
 
@@ -71,6 +71,6 @@ void        *ft_memcpy(void *dst, const void *src, size_t size);
 
 /*  UTILS   */
 
-uint16_t checksum(struct icmphdr *to_check, size_t size);
+uint16_t checksum(void *to_check, size_t size);
 
 #endif 

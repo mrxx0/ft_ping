@@ -22,7 +22,8 @@ end=$ \033[0m
 
 #-----------------------------------------SRC/INC-------------------------------#
 
-FT_PING_FILES 	= main parsing destination libft init loop utils
+FT_PING_FILES 	= 	main parsing destination libft init loop utils init_icmp \
+					init_ip
 
 INC_FILES 	= ft_ping.h
 
