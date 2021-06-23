@@ -1,6 +1,6 @@
 #include "../includes/ft_ping.h"
 
-void receive_echo_response(int socket, struct sockaddr_in sockaddr, char *packet)
+ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, char *packet)
 {
     char    tmp[512];
     ssize_t receive_bytes = 0;
@@ -24,6 +24,7 @@ void receive_echo_response(int socket, struct sockaddr_in sockaddr, char *packet
     if (receive_bytes == -1)
         printf("OUPS\n");
     printf("%zd bytes receive\n", receive_bytes);
+    return (receive_bytes);
 }
 
 _Bool receive_response()
@@ -32,8 +33,10 @@ _Bool receive_response()
 
     while (1)
     {
-        receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet);
-
+        if (receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet) > 0)
+            break ;
+        else
+            return (EXIT_FAILURE);
     }
     return (EXIT_SUCCESS);
 }

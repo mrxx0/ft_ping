@@ -53,17 +53,7 @@ _Bool parsing_arguments(int argc, char **argv)
     else if (argc >= 1)
     {        
 
-        find_opt(argc, argv);
-
-        // if ((t_payload.opt & HELP) == 1)
-        //     printf("HELP\n");
-        // if ((t_payload.opt & VERBOSE) == 2)
-        //     printf("VERBOSE\n");
-        // if ((t_payload.opt & BAD_OPT) == 4)
-        //     printf("BAD_OPT\n");
-        // if ((t_payload.opt & NO_OPT) == 8)
-        //     printf("NO_OPT\n");
-            
+        find_opt(argc, argv);    
         if (((t_payload.opt & BAD_OPT) == 4)
         || ((t_payload.opt & HELP) == 1)
         || ((argc > 2 && (t_payload.opt & NO_OPT) == 5)))
