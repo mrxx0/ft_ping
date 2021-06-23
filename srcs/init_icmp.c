@@ -19,7 +19,7 @@ void fill_icmp_time(void *icmp)
 
 void fill_icmp_data(void *icmp, size_t size)
 {
-    memset(icmp, 42, size);
+    memset(icmp, 0x42, size);
 }
 
 void init_icmp(void *icmp)

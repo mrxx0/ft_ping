@@ -40,11 +40,8 @@ int main(int argc, char **argv)
             print_help();
             return (EXIT_FAILURE);
         }
-       
         if (init_socket() == EXIT_FAILURE)
             return (EXIT_FAILURE);
-        // if (init_destination() == EXIT_FAILURE)
-        //     return (EXIT_FAILURE);
         print_payload();
 
         loop();
