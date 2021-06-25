@@ -16,16 +16,6 @@ struct s_payload t_payload = {
     }
 };
 
-void print_payload()
-{
-    printf("socket_fd = [%d]\n", t_payload.socket_fd);
-    printf("ttl = [%d]\n", t_payload.ttl);
-    printf("opt = [%d]\n", t_payload.opt);
-    printf("id_opt = [%d]\n", t_payload.id_opt);
-    printf("address = [%s]\n", t_payload.destination_address);
-    printf("ip = [%s]\n", t_payload.destination_ip);
-}
-
 int main(int argc, char **argv)
 {    
     if (getuid() != VALID_ROOT_UID)
@@ -35,6 +25,9 @@ int main(int argc, char **argv)
     }
     if (argc > 1)
     {
+        if (signal(SIGALRM, &send_request) == SIG_ERR
+            || signal(SIGINT, &close_ping) == SIG_ERR)
+            ft_perror("Alarm failed\n");
         if (parsing_arguments(argc, argv) == EXIT_FAILURE)
         {
             print_help();
@@ -42,8 +35,6 @@ int main(int argc, char **argv)
         }
         if (init_socket() == EXIT_FAILURE)
             return (EXIT_FAILURE);
-        print_payload();
-
         loop();
     }
     else

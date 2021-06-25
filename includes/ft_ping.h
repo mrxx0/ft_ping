@@ -37,8 +37,8 @@ extern struct  s_payload
     int             ttl;
     int             opt;
     int             id_opt;
-    int             seq;
-    char            pad[4];
+    u_int16_t             seq;
+    char            pad[6];
     long            timeout;
     char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
     char            pad_2[7];
@@ -60,6 +60,10 @@ _Bool       init_destination();
 void        init_ip (void *ip, u_int32_t dst);
 void        init_icmp(void *icmp);
 void        loop();
+void        send_request();
+suseconds_t get_rtt(struct timeval *time);
+void check_response(void *receive_packet, u_int16_t sequence);
+
 
 /*  LIBFT   */
 
@@ -71,6 +75,9 @@ void        *ft_memcpy(void *dst, const void *src, size_t size);
 
 /*  UTILS   */
 
-uint16_t checksum(void *to_check, size_t size);
+uint16_t    checksum(void *to_check, size_t size);
+void        close_ping();
+void        print_info();
+
 
 #endif 

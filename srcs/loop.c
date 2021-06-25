@@ -19,6 +19,7 @@ ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, char *pac
         .msg_controllen = sizeof(tmp),
         .msg_flags = 0
     };
+    // getnameinfo(&sockaddr, sizeof(sockaddr), t_payload.destination_address, sizeof(_payload.destination_address), NULL, 0, 0);
     printf("%d\n", t_payload.seq);
     receive_bytes = recvmsg(socket, &msg, 0);
     if (receive_bytes == -1)
@@ -33,11 +34,10 @@ _Bool receive_response()
 
     while (1)
     {
-        if (receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet) > 0)
-            break ;
-        else
-            return (EXIT_FAILURE);
+        receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet);
+        check_response(receive_packet, t_payload.seq);
     }
+
     return (EXIT_SUCCESS);
 }
 
@@ -47,6 +47,7 @@ void send_echo_request(int socket, const struct sockaddr *dst, char *packet)
 
     bytes_sent = sendto(socket, packet, IP_HEADER_SIZE + ICMP_SIZE, 0, dst, sizeof(*dst));
     printf("%zd bytes sent\n", bytes_sent);
+    printf("NAME INFO = %s\n", t_payload.destination_address);
 
 }
 void send_request()
@@ -58,16 +59,17 @@ void send_request()
     init_ip(packet_sent, t_payload.receive.sin_addr.s_addr);
     init_icmp(packet_sent + IP_HEADER_SIZE);
     send_echo_request(t_payload.socket_fd, (const struct sockaddr *)&t_payload.receive, packet_sent);
+    alarm(1);
 }
 
 void loop()
 {
     printf("ft_ping %s (%s) %lu(%lu) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, ICMP_SIZE - ICMP_HEADER_SIZE, ICMP_SIZE + IP_HEADER_SIZE);
-    // while (1)
-    // {
+    while (1)
+    {
         send_request();
         if (receive_response() == EXIT_FAILURE)
             printf("RECEIVE KO\n");
-        //     //wait_to_receive();
-    // }
+        // print_info();
+    }
 }
