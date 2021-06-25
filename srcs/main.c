@@ -2,7 +2,7 @@
 
 struct s_payload t_payload = {
     .socket_fd = 0,
-    .ttl = 64,
+    .ttl = 13,
     .seq = 0,
     .opt = 0,
     .id_opt = 0,

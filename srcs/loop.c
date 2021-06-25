@@ -20,11 +20,11 @@ ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, char *pac
         .msg_flags = 0
     };
     // getnameinfo(&sockaddr, sizeof(sockaddr), t_payload.destination_address, sizeof(_payload.destination_address), NULL, 0, 0);
-    printf("%d\n", t_payload.seq);
+    // printf("%d\n", t_payload.seq);
     receive_bytes = recvmsg(socket, &msg, 0);
     if (receive_bytes == -1)
         printf("OUPS\n");
-    printf("%zd bytes receive\n", receive_bytes);
+    // printf("%zd bytes receive\n", receive_bytes);
     return (receive_bytes);
 }
 
@@ -46,8 +46,8 @@ void send_echo_request(int socket, const struct sockaddr *dst, char *packet)
     ssize_t bytes_sent;
 
     bytes_sent = sendto(socket, packet, IP_HEADER_SIZE + ICMP_SIZE, 0, dst, sizeof(*dst));
-    printf("%zd bytes sent\n", bytes_sent);
-    printf("NAME INFO = %s\n", t_payload.destination_address);
+    // printf("%zd bytes sent\n", bytes_sent);
+    // printf("NAME INFO = %s\n", t_payload.destination_address);
 
 }
 void send_request()
