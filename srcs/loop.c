@@ -63,12 +63,11 @@ void send_request()
 void loop()
 {
     printf("ft_ping %s (%s) %lu(%lu) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, ICMP_SIZE - ICMP_HEADER_SIZE, ICMP_SIZE + IP_HEADER_SIZE);
-    while (1)
-    {
+    // while (1)
+    // {
         send_request();
-        receive_response();
-        // if (receive_response() == EXIT_FAILURE)
-        //     printf("RECEIVE KO\n");
+        if (receive_response() == EXIT_FAILURE)
+            printf("RECEIVE KO\n");
         //     //wait_to_receive();
-    }
+    // }
 }
