@@ -13,7 +13,9 @@ void print_info()
 void close_ping()
 {
     close(t_payload.socket_fd);
-    printf("ft_ping stopped by user.\n%d ping sent to %s at %s\n", t_payload.seq, t_payload.destination_address, t_payload.destination_ip);
+	printf("\n--- %s ping statistics ---\n", t_payload.destination_address);
+	printf("X packets transmitted, X received, X%% packet loss, time Xms\n");
+	printf("rtt min/avg/max/mdev = X/X/X/X ms");
     exit(EXIT_SUCCESS);
 }
 
