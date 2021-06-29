@@ -18,7 +18,18 @@ void close_ping()
 	printf("\n--- %s ping statistics ---\n", t_payload.destination_address);
 	printf("%d packets transmitted, %d received, %d%% packet loss, time Xms\n", t_payload.seq, t_payload.rec, (int)loss);
 	printf("rtt min/avg/max/mdev = X/X/X/X ms");
+	// mdev = SQRT (SOMME (RTT * RTT) / N - (SOMME (RTT) / N) ^ 2)
     exit(EXIT_SUCCESS);
+}
+
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 uint16_t checksum(void *to_check, size_t size)

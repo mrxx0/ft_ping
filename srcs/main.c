@@ -2,13 +2,14 @@
 
 struct s_payload t_payload = {
     .socket_fd = 0,
-    .ttl = 13,
+    .ttl = 10,
     .seq = 0,
     .rec = 0,
     .opt = 0,
     .id_opt = 0,
     .timeout = 1,
     .destination_address = {0},
+    .display_ip = 1,
     .destination_ip = {0},
     .receive =
     {

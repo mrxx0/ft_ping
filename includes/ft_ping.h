@@ -42,7 +42,8 @@ extern struct  s_payload
     char            pad[4];
     long            timeout;
     char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
-    char            pad_2[7];
+    char            pad_2[6];
+    _Bool           display_ip;
     char            destination_ip[INET_ADDRSTRLEN]; // maximum IP len
     socklen_t       addrlen;
     struct sockaddr_in receive;
@@ -73,6 +74,7 @@ size_t	    ft_strlen(const char *s);
 _Bool       ft_isdigit(char c);
 _Bool       ft_perror(char *error);
 void        *ft_memcpy(void *dst, const void *src, size_t size);
+int		ft_strcmp(const char *s1, const char *s2);
 
 /*  UTILS   */
 

@@ -16,7 +16,10 @@ void check_response(void *receive_packet, u_int16_t sequence)
     else
     {
         rtt = get_rtt(receive_packet + IP_HEADER_SIZE + ICMP_HEADER_SIZE + 4);
-        printf("%lu bytes from %s (%s): icmp_seq=%hu ttl=%hhu time=%ld.%ld ms\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.destination_ip, receive_seq, ip->ttl, rtt / 1000, rtt % 1000);
+        if (t_payload.display_ip == 1)
+            printf("%lu bytes from %s (%s): icmp_seq=%hu ttl=%hhu time=%ld.%.1ld ms\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.destination_ip, receive_seq, ip->ttl, rtt / 1000, rtt % 1000);
+        else
+            printf("%lu bytes from %s: icmp_seq=%hu ttl=%hhu time=%ld.%.1ld ms\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, receive_seq, ip->ttl, rtt / 1000, rtt % 1000);
     }
     (void)sequence;
 }

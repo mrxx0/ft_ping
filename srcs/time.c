@@ -19,6 +19,12 @@ suseconds_t get_rtt(struct timeval *time)
     // printf("time->tv_sec = %ld\n", time->tv_sec);
     // printf("time->tv_usec = %ld\n", time->tv_usec);
     suseconds_t     rtt = actual_time - time->tv_sec * 1000000 - time->tv_usec;
+    if (t_payload.rec > 0)
+    {
+        suseconds_t mdev;
+
+        mdev = rtt / t_payload.rec;
+    }
 
     return (rtt);
 }

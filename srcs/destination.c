@@ -23,6 +23,8 @@ _Bool    get_destination(int argc, char **argv)
     t_payload.receive.sin_addr.s_addr = ((struct sockaddr_in*)tmp->ai_addr)->sin_addr.s_addr;
 
     inet_ntop(tmp->ai_family, &((struct sockaddr_in*)tmp->ai_addr)->sin_addr, t_payload.destination_ip, sizeof(t_payload.destination_ip));
+    if (ft_strcmp(t_payload.destination_ip, t_payload.destination_address) == 0)
+        t_payload.display_ip = 0;
     freeaddrinfo(tmp);
     return (EXIT_SUCCESS);
 }
