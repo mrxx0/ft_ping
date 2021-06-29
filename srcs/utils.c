@@ -13,8 +13,10 @@ void print_info()
 void close_ping()
 {
     close(t_payload.socket_fd);
+	float loss = (1.0f - t_payload.rec / (float)t_payload.seq) * 100.0f;
+
 	printf("\n--- %s ping statistics ---\n", t_payload.destination_address);
-	printf("X packets transmitted, X received, X%% packet loss, time Xms\n");
+	printf("%d packets transmitted, %d received, %d%% packet loss, time Xms\n", t_payload.seq, t_payload.rec, (int)loss);
 	printf("rtt min/avg/max/mdev = X/X/X/X ms");
     exit(EXIT_SUCCESS);
 }

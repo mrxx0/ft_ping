@@ -19,12 +19,10 @@ ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, char *pac
         .msg_controllen = sizeof(tmp),
         .msg_flags = 0
     };
-    // getnameinfo(&sockaddr, sizeof(sockaddr), t_payload.destination_address, sizeof(_payload.destination_address), NULL, 0, 0);
-    // printf("%d\n", t_payload.seq);
     receive_bytes = recvmsg(socket, &msg, 0);
     if (receive_bytes == -1)
-        printf("OUPS\n");
-    // printf("%zd bytes receive\n", receive_bytes);
+        return (EXIT_FAILURE);
+    t_payload.rec++;
     return (receive_bytes);
 }
 
@@ -34,7 +32,8 @@ _Bool receive_response()
 
     while (1)
     {
-        receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet);
+        if (receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet) == EXIT_FAILURE)
+            return (EXIT_FAILURE);
         check_response(receive_packet, t_payload.seq);
     }
 

@@ -38,7 +38,8 @@ extern struct  s_payload
     int             opt;
     int             id_opt;
     u_int16_t             seq;
-    char            pad[6];
+    u_int16_t               rec;
+    char            pad[4];
     long            timeout;
     char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
     char            pad_2[7];

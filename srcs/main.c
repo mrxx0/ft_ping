@@ -4,6 +4,7 @@ struct s_payload t_payload = {
     .socket_fd = 0,
     .ttl = 13,
     .seq = 0,
+    .rec = 0,
     .opt = 0,
     .id_opt = 0,
     .timeout = 1,
