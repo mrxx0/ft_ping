@@ -17,7 +17,8 @@ _Bool    get_destination(int argc, char **argv)
     }
     if (getaddrinfo(t_payload.destination_address, NULL, &address_info, &tmp))
     {
-        fprintf(stderr, "ft_ping : %s : Name or service not known\n", t_payload.destination_address);
+        if (t_payload.destination_address[0])
+            fprintf(stderr, "ft_ping : %s : Name or service not known\n", t_payload.destination_address);
         return (EXIT_FAILURE);
     }
     t_payload.receive.sin_addr.s_addr = ((struct sockaddr_in*)tmp->ai_addr)->sin_addr.s_addr;

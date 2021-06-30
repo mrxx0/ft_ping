@@ -36,7 +36,9 @@ int main(int argc, char **argv)
             ft_perror("Alarm failed\n");
         if (parsing_arguments(argc, argv) == EXIT_FAILURE)
         {
-            if ((t_payload.opt & HELP) == 1)
+            if (((t_payload.opt & HELP) == 1
+            || (t_payload.opt & VERBOSE) == 2)
+            && !t_payload.destination_address[0])
                 print_help();
             return (EXIT_FAILURE);
         }
