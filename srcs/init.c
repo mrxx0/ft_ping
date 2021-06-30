@@ -11,7 +11,7 @@ _Bool init_socket()
         return (ft_perror("Can't create RAW socket\n"));
     if (setsockopt(fd, IPPROTO_IP, IP_HDRINCL, \
 		(int[1]){1}, sizeof(int)) == -1)
-		return (ft_perror("Can't set option for socket\n"));
+		  return (ft_perror("Can't set option for socket\n"));
     t_payload.socket_fd = fd;
     return (EXIT_SUCCESS);
 }
