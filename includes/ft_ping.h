@@ -1,8 +1,6 @@
 #ifndef FT_PING_H
 #define FT_PING_H
 
-#include <sys/socket.h>
-#include <sys/types.h>
 #include <sys/time.h>
 #include <arpa/inet.h>
 #include <linux/icmp.h>
@@ -34,25 +32,25 @@
 
 extern struct  s_payload
 {
-    int             socket_fd;
-    int             ttl;
-    int             opt;
-    int             id_opt;
-    u_int16_t             seq;
-    u_int16_t               rec;
-    char            pad[4];
-    char            destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
-    char            pad_2[6];
-    _Bool           display_ip;
-    char            destination_ip[INET_ADDRSTRLEN]; // maximum IP len
-    socklen_t       addrlen;
-    struct sockaddr_in receive;
-    char            pad_3[4];
-    suseconds_t     rtt_min;
-    suseconds_t     rtt_max;
-    suseconds_t     rtt_avg;
-    suseconds_t     rtt_mul;
-    suseconds_t     start_time;
+    int                 socket_fd;
+    int                 ttl;
+    int                 opt;
+    int                 id_opt;
+    u_int16_t           seq;
+    u_int16_t           rec;
+    char                pad[4];
+    char                destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
+    char                pad_2[6];
+    _Bool               display_ip;
+    char                destination_ip[INET_ADDRSTRLEN]; // maximum IP len
+    socklen_t           addrlen;
+    struct sockaddr_in  receive;
+    char                pad_3[4];
+    suseconds_t         rtt_min;
+    suseconds_t         rtt_max;
+    suseconds_t         rtt_avg;
+    suseconds_t         rtt_mul;
+    suseconds_t         start_time;
 }               t_payload;
 
 /*  FT_PING   */
@@ -71,8 +69,6 @@ suseconds_t get_rtt(struct timeval *time);
 void        check_response(void *receive_packet, u_int16_t sequence);
 suseconds_t get_time (void);
 
-
-
 /*  LIBFT   */
 
 char	    *ft_strdup(const char *s1);
@@ -87,6 +83,5 @@ int		    ft_strcmp(const char *s1, const char *s2);
 uint16_t    checksum(void *to_check, size_t size);
 void        close_ping();
 void        print_info();
-
 
 #endif 
