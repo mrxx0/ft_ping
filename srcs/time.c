@@ -9,6 +9,8 @@ suseconds_t get_time (void)
         ft_perror("Can't get time of the day\n");
 		return (0);
 	}
+    if (t_payload.seq == 1)
+        t_payload.start_time = actual_time.tv_sec * 1000000 + actual_time.tv_usec;
 	return (actual_time.tv_sec * 1000000 + actual_time.tv_usec);
 }
 
@@ -19,12 +21,19 @@ suseconds_t get_rtt(struct timeval *time)
     // printf("time->tv_sec = %ld\n", time->tv_sec);
     // printf("time->tv_usec = %ld\n", time->tv_usec);
     suseconds_t     rtt = actual_time - time->tv_sec * 1000000 - time->tv_usec;
-    if (t_payload.rec > 0)
+    if (t_payload.seq == 1)
     {
-        suseconds_t mdev;
-
-        mdev = rtt / t_payload.rec;
+        t_payload.rtt_min = rtt;
+        t_payload.rtt_max = rtt;
+        t_payload.rtt_avg = rtt;
+        t_payload.rtt_mul = rtt * rtt;
     }
-
+    else
+    {
+        t_payload.rtt_min = t_payload.rtt_min > rtt ? rtt : t_payload.rtt_min;
+        t_payload.rtt_max = t_payload.rtt_max < rtt ? rtt : t_payload.rtt_max;
+        t_payload.rtt_avg = t_payload.rtt_avg + rtt;
+        t_payload.rtt_mul = t_payload.rtt_mul + (rtt * rtt);
+    }
     return (rtt);
 }

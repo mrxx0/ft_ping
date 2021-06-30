@@ -14,7 +14,12 @@ struct s_payload t_payload = {
     {
         .sin_family = AF_INET,
         .sin_port = 0
-    }
+    },
+    .rtt_min = 0,
+    .rtt_max = 0,
+    .rtt_avg = 0,
+    .rtt_mul = 0,
+    .start_time = 0
 };
 
 int main(int argc, char **argv)

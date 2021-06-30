@@ -17,12 +17,29 @@ void print_info()
 void close_ping()
 {
     close(t_payload.socket_fd);
-	float loss = (1.0f - t_payload.rec / (float)t_payload.seq) * 100.0f;
+	float loss = (1.0f - t_payload.rec / (float)t_payload.seq) * 100.0;
+	suseconds_t time_diff = get_time() - t_payload.start_time;
 
 	printf("\n--- %s ping statistics ---\n", t_payload.destination_address);
-	printf("%d packets transmitted, %d received, %d%% packet loss, time Xms\n", t_payload.seq, t_payload.rec, (int)loss);
-	printf("rtt min/avg/max/mdev = X/X/X/X ms");
-	// mdev = SQRT (SOMME (RTT * RTT) / N - (SOMME (RTT) / N) ^ 2)
+	printf("%d packets transmitted, %d received, %d%% packet loss, time %ldms\n",
+		t_payload.seq,
+		t_payload.rec,
+		(int)loss,
+		time_diff / 1000);
+	if (t_payload.rec > 0)
+    {
+        suseconds_t mdev;
+
+        mdev = t_payload.rtt_avg / t_payload.rec;
+		t_payload.rtt_mul = t_payload.rtt_mul / t_payload.rec;
+		mdev = sqrtl(t_payload.rtt_mul - mdev * mdev);
+
+		printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n",
+		t_payload.rtt_min / 1000.0,
+		(t_payload.rtt_avg / (float)t_payload.rec) / 1000.0,
+		t_payload.rtt_max / 1000.0,
+		mdev / 1000.0);
+    }
     exit(EXIT_SUCCESS);
 }
 
