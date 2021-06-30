@@ -45,9 +45,8 @@ void send_echo_request(int socket, const struct sockaddr *dst, char *packet)
     ssize_t bytes_sent;
 
     bytes_sent = sendto(socket, packet, IP_HEADER_SIZE + ICMP_SIZE, 0, dst, sizeof(*dst));
-    // printf("%zd bytes sent\n", bytes_sent);
-    // printf("NAME INFO = %s\n", t_payload.destination_address);
-
+    if (bytes_sent == -1)
+        printf("Error send echo request\n");
 }
 void send_request()
 {
@@ -69,6 +68,5 @@ void loop()
         send_request();
         if (receive_response() == EXIT_FAILURE)
             printf("RECEIVE KO\n");
-        // print_info();
     }
 }
