@@ -1,6 +1,6 @@
 #include "../includes/ft_ping.h"
 
-void check_response(void *receive_packet, u_int16_t sequence)
+void check_response(void *receive_packet)
 {
     struct iphdr    *ip = receive_packet;
     struct icmphdr  *icmp = receive_packet + IP_HEADER_SIZE;
@@ -21,5 +21,4 @@ void check_response(void *receive_packet, u_int16_t sequence)
         else
             printf("%lu bytes from %s: icmp_seq=%hu ttl=%hhu time=%ld.%.1ld ms\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, receive_seq, ip->ttl, rtt / 1000, rtt % 1000);
     }
-    (void)sequence;
 }

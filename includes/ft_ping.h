@@ -66,7 +66,7 @@ void        init_icmp(void *icmp);
 void        loop();
 void        send_request();
 suseconds_t get_rtt(struct timeval *time);
-void        check_response(void *receive_packet, u_int16_t sequence);
+void        check_response(void *receive_packet);
 suseconds_t get_time (void);
 
 /*  LIBFT   */

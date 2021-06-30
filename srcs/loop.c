@@ -34,7 +34,7 @@ _Bool receive_response()
     {
         if (receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet) == EXIT_FAILURE)
             return (EXIT_FAILURE);
-        check_response(receive_packet, t_payload.seq);
+        check_response(receive_packet);
     }
 
     return (EXIT_SUCCESS);
