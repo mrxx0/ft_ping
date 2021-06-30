@@ -1,5 +1,7 @@
 #include "../includes/ft_ping.h"
 
+// Loop till the user stop with ctrl + C by sending and receiving echo reply/response
+
 ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, char *packet)
 {
     char    tmp[512];

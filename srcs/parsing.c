@@ -1,5 +1,7 @@
 #include "../includes/ft_ping.h"
 
+// Parse the argument and check the option
+
 void parse_opt(char *str)
 {
     size_t i = 1;

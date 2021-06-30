@@ -1,5 +1,6 @@
 #include "../includes/ft_ping.h"
 
+// Init the icmp part of the packet
 
 void fill_icmp_hdr(struct icmphdr *icmp, int seq)
 {

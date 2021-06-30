@@ -1,5 +1,7 @@
 #include "../includes/ft_ping.h"
 
+// Init the ip part of the packet
+
 void fill_ip (struct iphdr *ip, uint32_t dst)
 {
     ip->version = 4;

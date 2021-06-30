@@ -1,5 +1,7 @@
 #include "../includes/ft_ping.h"
 
+// Get the RTT value with min/max/avg and start time of the command
+
 suseconds_t get_time (void)
 {
     struct timeval	actual_time;

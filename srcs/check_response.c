@@ -1,5 +1,7 @@
 #include "../includes/ft_ping.h"
 
+// Check the validity of the echo response
+
 void check_response(void *receive_packet)
 {
     struct iphdr    *ip = receive_packet;

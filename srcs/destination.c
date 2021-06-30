@@ -1,5 +1,7 @@
 #include "../includes/ft_ping.h"
 
+// Get the destination and check its validity
+
 _Bool    get_destination(int argc, char **argv)
 {
     int i = 1;
