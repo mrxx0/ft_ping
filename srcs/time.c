@@ -17,10 +17,8 @@ suseconds_t get_time (void)
 suseconds_t get_rtt(struct timeval *time)
 {
     suseconds_t     actual_time = get_time();
-    // printf("actual time = %ld\n", actual_time);
-    // printf("time->tv_sec = %ld\n", time->tv_sec);
-    // printf("time->tv_usec = %ld\n", time->tv_usec);
     suseconds_t     rtt = actual_time - time->tv_sec * 1000000 - time->tv_usec;
+    
     if (t_payload.seq == 1)
     {
         t_payload.rtt_min = rtt;
