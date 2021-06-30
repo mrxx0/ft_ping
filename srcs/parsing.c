@@ -1,11 +1,5 @@
 #include "../includes/ft_ping.h"
 
-_Bool print_help(void)
-{
-    printf("Usage: ft_ping [-hv] <destination adress>\n");
-    return (EXIT_SUCCESS);
-}
-
 void parse_opt(char *str)
 {
     size_t i = 1;

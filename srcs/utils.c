@@ -1,5 +1,11 @@
 #include "../includes/ft_ping.h"
 
+_Bool print_help(void)
+{
+    printf("Usage: \tft_ping [-v] <destination adress>\n\tft_ping -h\n");
+    return (EXIT_SUCCESS);
+}
+
 void print_info()
 {
 	printf("______________________________________________\n");
