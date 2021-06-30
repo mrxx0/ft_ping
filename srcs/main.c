@@ -2,12 +2,11 @@
 
 struct s_payload t_payload = {
     .socket_fd = 0,
-    .ttl = 10,
+    .ttl = 64,
     .seq = 0,
     .rec = 0,
     .opt = 0,
     .id_opt = 0,
-    .timeout = 1,
     .destination_address = {0},
     .display_ip = 1,
     .destination_ip = {0},
@@ -32,11 +31,14 @@ int main(int argc, char **argv)
             ft_perror("Alarm failed\n");
         if (parsing_arguments(argc, argv) == EXIT_FAILURE)
         {
-            print_help();
+            if ((t_payload.opt & HELP) == 1)
+                print_help();
             return (EXIT_FAILURE);
         }
         if (init_socket() == EXIT_FAILURE)
             return (EXIT_FAILURE);
+        if ((t_payload.opt & VERBOSE) == 2)
+            print_info();
         loop();
     }
     else

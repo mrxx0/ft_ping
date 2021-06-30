@@ -2,12 +2,16 @@
 
 void print_info()
 {
-	printf("socket_fd = [%d]\n", t_payload.socket_fd);
-    printf("ttl = [%d]\n", t_payload.ttl);
+	printf("______________________________________________\n");
+	printf("\t\tVERBOSE MODE\n\n");
+	printf("Reading socket on fd = [%d]\n", t_payload.socket_fd);
+    printf("TTL value = [%d]\n", t_payload.ttl);
     printf("opt = [%d]\n", t_payload.opt);
-    printf("id_opt = [%d]\n", t_payload.id_opt);
-    printf("address = [%s]\n", t_payload.destination_address);
-    printf("ip = [%s]\n", t_payload.destination_ip);
+    printf("Option found at id = [%d]\n", t_payload.id_opt);
+    printf("Destination address  = [%s]\n", t_payload.destination_address);
+    printf("Destination ip = [%s]\n", t_payload.destination_ip);
+	printf("______________________________________________\n");
+
 }
 
 void close_ping()

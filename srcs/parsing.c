@@ -61,12 +61,7 @@ _Bool parsing_arguments(int argc, char **argv)
             return (EXIT_FAILURE);
         }
         if (get_destination(argc, argv) == EXIT_FAILURE)
-        {
-            printf("Error get_destination\n");
             return (EXIT_FAILURE);
-        }
-
-       
     }
     return (EXIT_SUCCESS);
 }
