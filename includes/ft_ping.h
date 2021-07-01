@@ -2,6 +2,7 @@
 #define FT_PING_H
 
 #include <sys/time.h>
+#include <sys/socket.h>
 #include <arpa/inet.h>
 #include <linux/icmp.h>
 #include <linux/ip.h>
