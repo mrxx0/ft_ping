@@ -15,7 +15,7 @@ void parse_opt(char *str)
         i++;
     }
     if (t_payload.opt == 0)
-        t_payload.opt |= NO_OPT;
+        t_payload.opt |= BAD_OPT;
 }
 
 void find_opt(int argc, char **argv)
