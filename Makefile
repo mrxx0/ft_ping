@@ -53,7 +53,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@echo "Compilation of $(whi)$(notdir $<)$(grn_da) done.$(end)"
 
 $(NAME): $(INC) $(OBJ_PATH) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -I $(INC_PATH)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -lm -I $(INC_PATH)
 	@echo "$(grn_li)$(notdir $(NAME))$(grn_da) created.$(end)"
 
 clean:
