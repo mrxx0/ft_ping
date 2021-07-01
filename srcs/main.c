@@ -37,7 +37,8 @@ int main(int argc, char **argv)
         if (parsing_arguments(argc, argv) == EXIT_FAILURE)
         {
             if (((t_payload.opt & HELP) == 1
-            || (t_payload.opt & VERBOSE) == 2)
+            || (t_payload.opt & VERBOSE) == 2
+            || (t_payload.opt & BAD_OPT) == 4)
             && !t_payload.destination_address[0])
                 print_help();
             return (EXIT_FAILURE);
