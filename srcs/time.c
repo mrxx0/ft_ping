@@ -23,8 +23,6 @@ suseconds_t get_time (void)
         ft_perror("Can't get time of the day\n");
 		return (0);
 	}
-    if (t_payload.seq == 1)
-        t_payload.start_time = actual_time.tv_sec * 1000000 + actual_time.tv_usec;
 	return (actual_time.tv_sec * 1000000 + actual_time.tv_usec);
 }
 
