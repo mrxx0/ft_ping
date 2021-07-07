@@ -55,6 +55,8 @@ void send_request()
     char    packet_sent[ICMP_SIZE + IP_HEADER_SIZE];
 
     t_payload.seq++;
+    if (t_payload.seq == 1)
+        t_payload.start_time = start_time();
 
     init_ip(packet_sent, t_payload.receive.sin_addr.s_addr);
     init_icmp(packet_sent + IP_HEADER_SIZE);

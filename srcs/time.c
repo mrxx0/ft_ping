@@ -1,5 +1,17 @@
 #include "../includes/ft_ping.h"
 
+suseconds_t start_time(void)
+{
+     struct timeval	actual_time;
+
+	if (gettimeofday(&actual_time, NULL) == -1)
+	{
+        ft_perror("Can't get time of the day\n");
+		return (0);
+	}
+    return (t_payload.start_time = actual_time.tv_sec * 1000000 + actual_time.tv_usec);
+}
+
 // Get the RTT value with min/max/avg and start time of the command
 
 suseconds_t get_time (void)

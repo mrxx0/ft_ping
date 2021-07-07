@@ -69,6 +69,7 @@ void        send_request();
 suseconds_t get_rtt(struct timeval *time);
 void        check_response(void *receive_packet);
 suseconds_t get_time (void);
+suseconds_t start_time(void);
 
 /*  LIBFT   */
 
