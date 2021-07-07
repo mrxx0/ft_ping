@@ -1,5 +1,28 @@
 #include "../includes/ft_ping.h"
 
+/**/
+
+uint16_t    swap16(uint16_t nb)
+{
+    return ((nb << 8) | (nb >> 8));
+}
+
+uint32_t    swap32(uint32_t nb)
+{
+    nb = ((nb << 8) & 0xFF00FF00) | ((nb >> 8) & 0xFF00FF);
+    return ((nb << 16) | (nb >> 16));
+}
+
+uint64_t    swap64(uint64_t nb)
+{
+    nb = ((nb <<8) & 0xFF00FF00FF00FF00ULL) | ((nb >> 8) & 0x00FF00FF00FF00FFULL);
+    nb = ((nb <<16) & 0xFFFF0000FFFF0000ULL) | ((nb >> 16) & 0x0000FFFF0000FFFFULL);
+    return (nb << 32) | (nb >> 32);
+}
+
+
+/**/
+
 void *ft_memcpy(void *dst, const void *src, size_t size)
 {
 	size_t i = 0;

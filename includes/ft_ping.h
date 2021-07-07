@@ -14,6 +14,9 @@
 #include <string.h>
 #include <math.h>
 
+#define TRUE 1
+#define FALSE 0
+
 #define VALID_ROOT_UID 0
 
 # define HELP	    1
@@ -39,14 +42,14 @@ extern struct  s_payload
     int                 id_opt;
     u_int16_t           seq;
     u_int16_t           rec;
-    char                pad[4];
-    char                destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
-    char                pad_2[6];
     _Bool               display_ip;
+    _Bool               display_rtt;
+    char                destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
     char                destination_ip[INET_ADDRSTRLEN]; // maximum IP len
+    char                pad[1];
     socklen_t           addrlen;
     struct sockaddr_in  receive;
-    char                pad_3[4];
+    char                pad_2[4];
     suseconds_t         rtt_min;
     suseconds_t         rtt_max;
     suseconds_t         rtt_avg;
@@ -85,5 +88,9 @@ int		    ft_strcmp(const char *s1, const char *s2);
 uint16_t    checksum(void *to_check, size_t size);
 void        close_ping();
 void        print_info();
+
+
+
+uint16_t    swap16(uint16_t nb);
 
 #endif 

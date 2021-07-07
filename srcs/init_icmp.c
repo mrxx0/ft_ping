@@ -6,7 +6,8 @@ void fill_icmp_hdr(struct icmphdr *icmp, int seq)
 {
     icmp->type = ICMP_ECHO;
     icmp->code = 0;
-    icmp->un.echo.id = htons(getpid());
+    icmp->un.echo.id = swap16((uint16_t)getpid());
+    printf("id set at : %d | PID is : %d\n", icmp->un.echo.id, swap16((uint16_t)getpid()));
     icmp->un.echo.sequence = htons(seq);
     icmp->checksum = 0;
     icmp->checksum = checksum(icmp, 64);

@@ -19,7 +19,8 @@ struct s_payload t_payload = {
     .rtt_max = 0,
     .rtt_avg = 0,
     .rtt_mul = 0,
-    .start_time = 0
+    .start_time = 0,
+    .display_rtt = TRUE
 };
 
 int main(int argc, char **argv)

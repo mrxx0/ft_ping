@@ -23,7 +23,11 @@ void print_info()
 void close_ping()
 {
     close(t_payload.socket_fd);
-	float loss = (1.0f - t_payload.rec / (float)t_payload.seq) * 100.0;
+	float loss;
+	if (t_payload.rec == 0 && t_payload.seq == 0)
+		loss = 0;
+	else
+		loss = (1.0f - t_payload.rec / (float)t_payload.seq) * 100.0;
 	suseconds_t time_diff = get_time() - t_payload.start_time;
 
 	printf("\n--- %s ping statistics ---\n", t_payload.destination_address);
@@ -32,7 +36,7 @@ void close_ping()
 		t_payload.rec,
 		(int)loss,
 		time_diff / 1000);
-	if (t_payload.rec > 0)
+	if (t_payload.rec > 0 && t_payload.display_rtt == TRUE)
     {
         suseconds_t mdev;
 
