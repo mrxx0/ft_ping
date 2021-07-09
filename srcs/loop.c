@@ -48,7 +48,7 @@ void send_echo_request(int socket, const struct sockaddr *dst, char *packet)
     bytes_sent = sendto(socket, packet, IP_HEADER_SIZE + ICMP_SIZE, 0, dst, sizeof(*dst));
     if (bytes_sent == -1)
         printf("Error send echo request\n");
-    // t_payload.seq++;
+    t_payload.seq++;
 
 }
 void send_request()
@@ -66,11 +66,11 @@ void send_request()
 
 void loop()
 {
-    printf("ft_ping %s (%s) %lu(%lu) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, ICMP_SIZE - ICMP_HEADER_SIZE, ICMP_SIZE + IP_HEADER_SIZE);
+    printf("PING %s (%s) %lu(%lu) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, ICMP_SIZE - ICMP_HEADER_SIZE, ICMP_SIZE + IP_HEADER_SIZE);
     while (1)
     {
         send_request();
-        t_payload.seq++;
+        // t_payload.seq++;
         if (receive_response() == EXIT_FAILURE)
             printf("RECEIVE KO\n");
     }
