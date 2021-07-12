@@ -31,11 +31,24 @@ void close_ping()
 	suseconds_t time_diff = get_time() - t_payload.start_time;
 
 	printf("\n--- %s ping statistics ---\n", t_payload.destination_address);
-	printf("%d packets transmitted, %d received, %d%% packet loss, time %ldms\n",
-		t_payload.seq,
-		t_payload.rec,
-		(int)loss,
-		time_diff / 1000);
+	if (t_payload.error == 0)
+	{
+		printf("%d packets transmitted, %d received, %d%% packet loss, time %ldms\n",
+			t_payload.seq,
+			t_payload.rec,
+			(int)loss,
+			time_diff / 1000);
+	}
+	else
+	{
+		printf("%d packets transmitted, %d received, +%d errors, %d%% packet loss, time %ldms\n",
+			t_payload.seq,
+			t_payload.rec,
+			t_payload.error,
+			(int)loss,
+			time_diff / 1000);
+
+	}
 	if (t_payload.rec > 0 && t_payload.display_rtt == TRUE)
     {
         suseconds_t mdev;

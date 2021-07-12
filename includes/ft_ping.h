@@ -11,7 +11,6 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <netdb.h>
-#include <string.h>
 #include <math.h>
 
 #define TRUE 1
@@ -36,25 +35,25 @@
 
 extern struct  s_payload
 {
-    int                 socket_fd;
-    int                 ttl;
-    int                 opt;
-    int                 id_opt;
-    u_int16_t           seq;
-    u_int16_t           rec;
-    _Bool               display_ip;
-    _Bool               display_rtt;
-    char                destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
-    char                destination_ip[INET_ADDRSTRLEN]; // maximum IP len
-    char                pad[1];
-    socklen_t           addrlen;
-    struct sockaddr_in  receive;
-    char                pad_2[4];
-    suseconds_t         rtt_min;
-    suseconds_t         rtt_max;
-    suseconds_t         rtt_avg;
-    suseconds_t         rtt_mul;
-    suseconds_t         start_time;
+	int                 socket_fd;
+	int                 ttl;
+	int                 opt;
+	int                 id_opt;
+	u_int16_t		error;
+	u_int16_t           seq;
+	u_int16_t           rec;
+	_Bool               display_ip;
+	_Bool               display_rtt;
+	char                destination_address[NI_MAXHOST]; // maximum domain name based on arpa/nameser.h
+	char                destination_ip[INET_ADDRSTRLEN]; // maximum IP len
+	char                pad[3];
+	socklen_t           addrlen;
+	struct sockaddr_in  receive;
+	suseconds_t         rtt_min;
+	suseconds_t         rtt_max;
+	suseconds_t         rtt_avg;
+	suseconds_t         rtt_mul;
+	suseconds_t         start_time;
 }               t_payload;
 
 /*  FT_PING   */
@@ -81,8 +80,8 @@ size_t	    ft_strlen(const char *s);
 _Bool       ft_isdigit(char c);
 _Bool       ft_perror(char *error);
 void        *ft_memcpy(void *dst, const void *src, size_t size);
-int		    ft_strcmp(const char *s1, const char *s2);
-
+int	    ft_strcmp(const char *s1, const char *s2);
+void		*ft_memset(void *b, int c, size_t n);		
 /*  UTILS   */
 
 uint16_t    checksum(void *to_check, size_t size);
