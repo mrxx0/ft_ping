@@ -24,7 +24,6 @@ ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, void *pac
     receive_bytes = recvmsg(socket, &msg, 0);
     if (receive_bytes == -1)
         return (EXIT_FAILURE);
-        // t_payload.seq++;
     return (receive_bytes);
 }
 
