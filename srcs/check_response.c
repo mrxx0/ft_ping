@@ -75,16 +75,16 @@ void check_response(void *receive_packet)
 			if ((t_payload.opt & VERBOSE) == 2)
 			{
 				if (t_payload.display_ip == 1)
-					printf("%lu bytes from %s (%s): icmp_seq=%hu %s %s\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.destination_ip, t_payload.seq, error_id[icmp->type], error_details[icmp->code]);
+					printf("From %s (%s) icmp_seq=%hu %s %s\n", t_payload.destination_address, t_payload.destination_ip, t_payload.seq, error_id[icmp->type], error_details[icmp->code]);
 				else
-					printf("%lu bytes from %s: icmp_seq=%hu %s %s\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.seq, error_id[icmp->type], error_details[icmp->code]);
+					printf("From %s icmp_seq=%hu %s %s\n", t_payload.destination_address, t_payload.seq, error_id[icmp->type], error_details[icmp->code]);
 			}
 			else
 			{
 				if (t_payload.display_ip == 1)
-					printf("%lu bytes from %s (%s): icmp_seq=%hu %s\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.destination_ip, t_payload.seq, error_id[icmp->type]);
+					printf("From %s (%s): icmp_seq=%hu %s\n", t_payload.destination_address, t_payload.destination_ip, t_payload.seq, error_id[icmp->type]);
 				else
-					printf("%lu bytes from %s: icmp_seq=%hu %s\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.seq, error_id[icmp->type]);
+					printf("From %s icmp_seq=%hu %s\n", t_payload.destination_address, t_payload.seq, error_id[icmp->type]);
 			}  
 		t_payload.error++;
 		}
@@ -97,6 +97,5 @@ void check_response(void *receive_packet)
 				printf("%lu bytes from %s: icmp_seq=%hu ttl=%hhu time=%ld.%.1ld ms\n", (uint16_t)(ntohs(ip->tot_len)) - IP_HEADER_SIZE, t_payload.destination_address, t_payload.seq, ip->ttl, rtt / 1000, rtt % 1000);
 		t_payload.rec++;
 		}
-		t_payload.seq++;
 	}
 }

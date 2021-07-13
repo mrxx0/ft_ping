@@ -24,6 +24,7 @@ ssize_t receive_echo_response(int socket, struct sockaddr_in sockaddr, void *pac
     receive_bytes = recvmsg(socket, &msg, 0);
     if (receive_bytes == -1)
         return (EXIT_FAILURE);
+        // t_payload.seq++;
     return (receive_bytes);
 }
 
@@ -35,6 +36,7 @@ _Bool receive_response()
     {
         if (receive_echo_response(t_payload.socket_fd, t_payload.receive, receive_packet) == EXIT_FAILURE)
             return (EXIT_FAILURE);
+        t_payload.seq++;
         check_response(receive_packet);
     }
 
@@ -47,7 +49,11 @@ void send_echo_request(int socket, const struct sockaddr *dst, char *packet)
 
     bytes_sent = sendto(socket, packet, IP_HEADER_SIZE + ICMP_SIZE, 0, dst, sizeof(*dst));
     if (bytes_sent == -1)
+    {
         printf("Error send echo request\n");
+        return ;
+    }
+
 
 }
 void send_request()
@@ -68,7 +74,7 @@ void loop()
     printf("PING %s (%s) %lu(%lu) bytes of data.\n", t_payload.destination_address, t_payload.destination_ip, ICMP_SIZE - ICMP_HEADER_SIZE, ICMP_SIZE + IP_HEADER_SIZE);
     while (1)
     {
-        send_request();
+        send_request();    
         if (receive_response() == EXIT_FAILURE)
             printf("RECEIVE KO\n");
     }
